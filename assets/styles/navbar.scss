@@ -1,0 +1,27 @@
+.navbar-nav .nav-link {
+    color: $light;
+    &::after {
+        content   : "";
+        width     : 0%;
+        height    : 3px;
+        display   : block;
+        transition: width 0.4s ease-in-out, background-color 0.4s ease-in-out;
+        bottom    : 0%;
+    }
+    &:hover {
+        color: $primary;
+        &::after {
+            width           : 100%;
+            height          : 3px;
+            background-color: $primary;
+        }
+    }
+    &.active {
+        color: $primary;
+        &::after {
+            width           : 100%;
+            height          : 3px;
+            background-color: $primary;
+        }
+    }
+}
