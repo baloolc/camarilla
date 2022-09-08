@@ -6,17 +6,23 @@
 			{% block title %}Les terres d'Acionna
 			{% endblock %}
 		</title>
-		<link
-		rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>"/>
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>"/>
 		{{ encore_entry_link_tags('app') }}
 		{% block stylesheets %}{% endblock %}
 		{{ encore_entry_script_tags('app') }}
 		{% block javascripts %}{% endblock %}
 	</head>
 	<body>
-	<header>
-	{% block navbar %}{% endblock %}
-	</header>
-		{% block body %}{% endblock %}
+		<header>
+			{% block navbar %}{% endblock %}
+		</header>
+		<main>
+			{% block body %}{% endblock %}
+		</main>
+		<footer>
+			{% block footer %}
+				{% include "component/_footer.html.twig" %}
+			{% endblock %}
+		</footer>
 	</body>
 </html>
