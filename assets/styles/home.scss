@@ -1,0 +1,16 @@
+@import "variable.scss";
+
+.imgHome {
+    height: 90vh;
+    background-image: url("../images/home.jpg");
+    background-position: top;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.welcome {
+    font-size: $font-size-welcome;
+    font-family: $font-family-welcome;
+    font-weight: 700;
+}
