@@ -1,3 +1,5 @@
+@import "variable.scss";
+
 .grad {
     background: #0c0000;
     background: linear-gradient(
@@ -7,4 +9,9 @@
         #0c0000 20%,
         #0c0000 40%
     ),
+}
+
+.footerLink {
+    text-decoration: none;
+    font-family: $font-family-title;
 }

@@ -1,5 +1,7 @@
-.navbar-nav .nav-link {
+.navbar-nav .nav-item {
     color: $light;
+    font-family: $font-family-title;
+    text-decoration: none;
     &::after {
         content   : "";
         width     : 0%;
