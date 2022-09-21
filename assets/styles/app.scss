@@ -2,3 +2,12 @@
 @import "navbar.scss";
 
 @import "~bootstrap/scss/bootstrap";
+
+body{
+    background-color: $light;
+}
+
+h1, h2, h3, h4 {
+    font-family: $font-family-title;
+}
+

@@ -1,17 +1,50 @@
-{% extends 'layout.html.twig' %} {% block title %}
-{{ parent() }}
-|| Accueil {% endblock %} {% block stylesheets %}
-{{ encore_entry_link_tags("home") }}
-{% endblock %} {% block body %}
-<div class="imgHome d-flex justify-content-center align-items-center shadow">
-    <div class="mx-4 d-flex flex-column align-items-center shadow">
-    <h1 class="welcome text-light m-0">
-      Bienvenue
-    </h1>
-    <h1 class="welcome text-light m-0 px-3">
-        Les terres d'Acionna
-      </h1>
-    </div>
-</div>
+{% extends 'layout.html.twig' %}
 
+{% block title %}
+	{{ parent() }}
+	|| Accueil
 {% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags("home") }}
+{% endblock %}
+
+{% block body %}
+	<div class="imgHome d-flex justify-content-center align-items-center shadow">
+		<div class="mx-4 d-flex flex-column align-items-center shadow">
+			<h1 class="welcome text-light m-0">
+				Bienvenue
+			</h1>
+			<h1 class="welcome text-light m-0 px-3">
+				Les terres d'Acionna
+			</h1>
+		</div>
+	</div>
+	<section>
+		<div class="d-flex justify-content-center my-4">
+			<h2 class="bg-primary border border-dark border-2 text-light p-3 rounded">Présentation de l'association</h2>
+		</div>
+		<div class="mx-5 d-flex flex-column flex-lg-row justify-content-center justify-content-lg-between">
+			<div class="me-5 mb-5">
+				<h3 class="my-4">Les terres d'Acionna</h3>
+				<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo iure quas animi dolorum, quo ea modi voluptas sed maiores debitis dolores minus iusto odio quia exercitationem cum sit voluptates tempora. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus excepturi ex tenetur eos temporibus? Incidunt quaerat nemo placeat, eius adipisci expedita impedit rerum veritatis ullam, fugit, consequuntur dolorum! Perferendis, itaque.</p>
+				<h3 class="my-4">Olympia soutient les Terres d'Acionna</h3>
+				<p class="mb-0">Olympia est une association loi 1901 fondée en 1998 à Montévrain (77).</p>
+				<p>Elle a été relancée en 2013 à Nogent-sur-Marne.</p>
+				<p>Elle a pour but de promouvoir les activités suivantes :</p>
+				<ul class="ms-2 mb-2">
+					<li>L'initiation et la pratique du jeu sous toutes ses formes (jeux de rôles, jeux de plateaux, jeux avec figurines, jeux de cartes, jeux de grandeur nature, jeux de simulation etc...)</li>
+					<li>L'initiation et la pratique du costuming et du cosplay, l'accompagnement à la conception et à la réalisation de costumes.</li>
+				</ul>
+				<p>En 2014, elle ouvre une antenne à Orléans. Nous sommes en 2017 et nous commençons enfin à avoir des activités régulières, c'est pour cela que nous avons enfin ouvert le site de l'antenne de l'association d'Orléans.</p>
+				Horaires d'accueil de l'assossiation :</p>
+			<ul class="ms-2">
+				<li>Mercredi : 18h - 00h</li>
+				<li>Samedi : 13h30 - 00h</li>
+			</ul>
+		</div>
+        <div class="me-3 mb-5 d-flex justify-content-center">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d4765.359834359369!2d1.967874183480211!3d47.9079859918591!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xc7fa50619abeab74!2sSalle%20Ren%C3%A9%20Cassin!5e0!3m2!1sfr!2sfr!4v1663183648835!5m2!1sfr!2sfr" width="650" height="550" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+	</div>
+</section>{% endblock %}
