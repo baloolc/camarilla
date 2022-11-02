@@ -6,7 +6,7 @@ $primary: #A60000;
 $dark:#0c0000;
 $light:#f1f1f1;
 
-$font-size-welcome:8rem;
+$font-size-welcome:clamp(3.3rem, 6vw, 15rem);
 
 $font-family-welcome:'Tangerine';
 $font-family-title: 'Merienda';

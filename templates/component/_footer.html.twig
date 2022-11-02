@@ -2,25 +2,25 @@
 	{{ encore_entry_link_tags('footer') }}
 {% endblock %}
 
-<div class="grad d-flex justify-content-between align-items-center">
-	<div class="ms-5">
+<div class="grad d-flex flex-column flex-md-row justify-content-md-between align-items-center">
+	<div class="d-md-flex d-none ms-5">
 		<a href="#">
 			<i class="bi bi-arrow-up-circle-fill fs-3 up"></i>
 		</a>
 	</div>
 	<div class="d-flex flex-column align-items-center my-2">
-		<div class="d-flex justify-content-center align-items-center">
+		<div class="d-flex flex-column flex-md-row justify-content-md-center align-items-center">
 			<a class="footerLink fs-6" href="https://camarilla.fr/forum/">Camarilla-fr.com</a>
-			<p class="mx-2 mb-0 text-light fs-6">|</p>
+			<p class="d-md-flex d-none mx-2 mb-0 text-light fs-6">|</p>
 			<a class="footerLink fs-6" href="#">Mentions légales</a>
 		</div>
-		<div class="d-flex justify-content-center align-items-center">
+		<div class="d-flex flex-column flex-md-row justify-content-md-center align-items-center">
 			<a class="footerLink fs-6" href="/">Les terres d’acionna</a>
-      <p class="mx-2 mb-0 text-light fs-6">|</p>
+      <p class="d-md-flex d-none mx-2 mb-0 text-light fs-6">|</p>
       <a class="footerLink  fs-6" href="#">Règlement interieur</a>
 		</div>
 	</div>
-	<div><a href="/"
+	<div class="d-md-flex d-none"><a href="/"
         ><img
           src="{{ asset('build/images/logo.png') }}"
           class="w-75"
