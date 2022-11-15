@@ -1,0 +1,32 @@
+@import "variable.scss";
+
+.imgContact {
+    height: 50.9rem;
+    background-image: url("../images/contact.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.formStyle {
+    border-color: $primary;
+    border-width: $borderWidth;
+    border-radius: $border;
+    outline-color: $success;
+}
+
+.send {
+    color: $primary;
+    font-size: $font-family-title;
+    background-color: $light;
+    border-radius: $border;
+    border-color: $primary;
+    border-width: $borderWidth;
+}
+
+.send:hover {
+    color: $light;
+    background-color: $primary;
+    border-color: $light;
+}
