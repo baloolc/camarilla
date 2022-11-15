@@ -1,0 +1,10 @@
+{% extends "email.html.twig" %}
+
+{% block body %}
+	<h1 class='mt-1 ms-2'>Bonjour membre du bureau de l'association Les Terres d'acionna</h1>
+	<h2 class='mt-2 ms-2'>{{ contact.firstname }}{{ contact.lastname }} Pseudonyme: {{ contact.nickname}}
+		vous a envoyé le message suivant :</h2>
+	<p class='mt-2 ms-2'>>{{ contact.message|nl2br }}</p>
+	<h3 class='mt-2 ms-2'>>Ses coordonnées sont :</h3>
+	<p class='mt-2 ms-2'>>{{ contact.email }}</p>
+{% endblock %}

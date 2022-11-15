@@ -1,0 +1,17 @@
+{% for label, messages in app.flashes %}
+	{% for message in messages %}
+		<div class="d-flex flex-column align-items-center bg-black">
+			{% if label == 'success' %}
+				<div class="bg-light flashBorder text-{{label}} alert alert-{{ label }}">
+					<i class="bi bi-check-circle"></i>
+					{{ message}}
+				</div>
+			{% else %}
+				<div class="bg-light flashBorder text-{{label}} alert alert-{{ label }}">
+					<i class="bi bi-exclamation-triangle"></i>
+					{{ message}}
+				</div>
+			{% endif %}
+		</div>
+	{% endfor %}
+{% endfor %}
