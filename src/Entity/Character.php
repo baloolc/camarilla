@@ -39,13 +39,6 @@ class Character
         max: 50,
     )]
     #[ORM\Column(length: 50)]
-    private ?string $clan;
-
-    #[Assert\NotBlank()]
-    #[Assert\Length(
-        max: 50,
-    )]
-    #[ORM\Column(length: 50)]
     private ?string $ageStatus;
 
     #[ORM\Column(nullable: true)]
@@ -58,7 +51,7 @@ class Character
     private ?User $user = null;
 
     #[ORM\Column(nullable: true)]
-    private ?bool $harpie = null;
+    private ?bool $is_harpie = null;
 
     public function getId(): ?int
     {
@@ -97,18 +90,6 @@ class Character
     public function setLink(?string $link): self
     {
         $this->link = $link;
-
-        return $this;
-    }
-
-    public function getClan(): ?string
-    {
-        return $this->clan;
-    }
-
-    public function setClan(?string $clan): self
-    {
-        $this->clan = $clan;
 
         return $this;
     }
@@ -163,12 +144,12 @@ class Character
 
     public function isHarpie(): ?bool
     {
-        return $this->harpie;
+        return $this->is_harpie;
     }
 
-    public function setHarpie(?bool $harpie): self
+    public function setIsHarpie(?bool $is_harpie): self
     {
-        $this->harpie = $harpie;
+        $this->is_harpie = $is_harpie;
 
         return $this;
     }
