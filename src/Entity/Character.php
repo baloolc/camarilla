@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\CharacterRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: CharacterRepository::class)]
 #[ORM\Table(name: '`character`')]
@@ -15,25 +17,38 @@ class Character
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\Length(
+        max: 200,
+    )]
     #[ORM\Column(length: 200, nullable: true)]
     private ?string $name = null;
 
+    #[Assert\Length(
+        max: 255,
+    )]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $avatar = null;
 
+    #[Assert\Url]
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $link = null;
 
+    #[Assert\Length(
+        max: 50,
+    )]
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $clan = null;
 
+    #[Assert\Length(
+        max: 50,
+    )]
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $ageStatus = null;
 
     #[ORM\Column(nullable: true)]
     private ?bool $is_validate = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[ORM\Column(length: 255,nullable: true)]
     private ?string $recognized = null;
 
     #[ORM\ManyToOne(inversedBy: 'character_id')]
