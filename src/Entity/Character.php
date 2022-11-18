@@ -17,11 +17,12 @@ class Character
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank()]
     #[Assert\Length(
         max: 200,
     )]
-    #[ORM\Column(length: 200, nullable: true)]
-    private ?string $name = null;
+    #[ORM\Column(length: 200)]
+    private ?string $name;
 
     #[Assert\Length(
         max: 255,
@@ -33,17 +34,19 @@ class Character
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $link = null;
 
+    #[Assert\NotBlank()]
     #[Assert\Length(
         max: 50,
     )]
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $clan = null;
+    #[ORM\Column(length: 50)]
+    private ?string $clan;
 
+    #[Assert\NotBlank()]
     #[Assert\Length(
         max: 50,
     )]
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $ageStatus = null;
+    #[ORM\Column(length: 50)]
+    private ?string $ageStatus;
 
     #[ORM\Column(nullable: true)]
     private ?bool $is_validate = null;
@@ -53,6 +56,9 @@ class Character
 
     #[ORM\ManyToOne(inversedBy: 'character_id')]
     private ?User $user = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $harpie = null;
 
     public function getId(): ?int
     {
@@ -151,6 +157,18 @@ class Character
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function isHarpie(): ?bool
+    {
+        return $this->harpie;
+    }
+
+    public function setHarpie(?bool $harpie): self
+    {
+        $this->harpie = $harpie;
 
         return $this;
     }
