@@ -41,9 +41,6 @@ class Character
     #[ORM\Column(length: 50)]
     private ?string $ageStatus;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $is_validate = null;
-
     #[ORM\Column(length: 255,nullable: true)]
     private ?string $recognized = null;
 
@@ -102,18 +99,6 @@ class Character
     public function setAgeStatus(?string $ageStatus): self
     {
         $this->ageStatus = $ageStatus;
-
-        return $this;
-    }
-
-    public function isIsValidate(): ?bool
-    {
-        return $this->is_validate;
-    }
-
-    public function setIsValidate(?bool $is_validate): self
-    {
-        $this->is_validate = $is_validate;
 
         return $this;
     }

@@ -54,9 +54,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 200)]
     private ?string $firstname;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $is_activate = null;
-
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Character::class)]
     private Collection $character_id;
 
@@ -166,18 +163,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFirstname(string $firstname): self
     {
         $this->firstname = $firstname;
-
-        return $this;
-    }
-
-    public function isIsActivate(): ?bool
-    {
-        return $this->is_activate;
-    }
-
-    public function setIsActivate(?bool $is_activate): self
-    {
-        $this->is_activate = $is_activate;
 
         return $this;
     }
