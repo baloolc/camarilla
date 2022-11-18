@@ -20,7 +20,6 @@ class CharacterFixtures extends Fixture implements DependentFixtureInterface
             $character = new Character();
             $character->setName($faker->name());
             $character->setLink($faker->url());
-            $character->setClan($faker->name());
             $character->setAgeStatus($faker->name());
             $character->setRecognized($faker->name());
             $character->setUser($this->getReference('user_' . $i));
