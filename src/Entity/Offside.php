@@ -28,9 +28,13 @@ class Offside
     #[ORM\ManyToMany(targetEntity: USER::class, inversedBy: 'offsides')]
     private Collection $user_id;
 
+    #[ORM\OneToMany(mappedBy: 'offside', targetEntity: OffsideTopic::class)]
+    private Collection $offsideTopic_id;
+
     public function __construct()
     {
         $this->user_id = new ArrayCollection();
+        $this->offsideTopic_id = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -82,6 +86,36 @@ class Offside
     public function removeUserId(USER $userId): self
     {
         $this->user_id->removeElement($userId);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OffsideTopic>
+     */
+    public function getOffsideTopicId(): Collection
+    {
+        return $this->offsideTopic_id;
+    }
+
+    public function addOffsideTopicId(OffsideTopic $offsideTopicId): self
+    {
+        if (!$this->offsideTopic_id->contains($offsideTopicId)) {
+            $this->offsideTopic_id->add($offsideTopicId);
+            $offsideTopicId->setOffside($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffsideTopicId(OffsideTopic $offsideTopicId): self
+    {
+        if ($this->offsideTopic_id->removeElement($offsideTopicId)) {
+            // set the owning side to null (unless already changed)
+            if ($offsideTopicId->getOffside() === $this) {
+                $offsideTopicId->setOffside(null);
+            }
+        }
 
         return $this;
     }
