@@ -66,10 +66,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'user_id')]
     private Collection $events;
 
+    #[ORM\ManyToMany(targetEntity: Offside::class, mappedBy: 'user_id')]
+    private Collection $offsides;
+
     public function __construct()
     {
         $this->character_id = new ArrayCollection();
         $this->events = new ArrayCollection();
+        $this->offsides = new ArrayCollection();
     }
 
 
@@ -231,6 +235,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->events->removeElement($event)) {
             $event->removeUserId($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Offside>
+     */
+    public function getOffsides(): Collection
+    {
+        return $this->offsides;
+    }
+
+    public function addOffside(Offside $offside): self
+    {
+        if (!$this->offsides->contains($offside)) {
+            $this->offsides->add($offside);
+            $offside->addUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffside(Offside $offside): self
+    {
+        if ($this->offsides->removeElement($offside)) {
+            $offside->removeUserId($this);
         }
 
         return $this;
