@@ -22,9 +22,6 @@ class Offside
     #[ORM\Column(length: 200, nullable: true)]
     private ?string $offsideCategory = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $is_response = null;
-
     #[ORM\ManyToMany(targetEntity: USER::class, inversedBy: 'offsides')]
     private Collection $user_id;
 
@@ -50,18 +47,6 @@ class Offside
     public function setOffsideCategory(?string $offsideCategory): self
     {
         $this->offsideCategory = $offsideCategory;
-
-        return $this;
-    }
-
-    public function isIsResponse(): ?bool
-    {
-        return $this->is_response;
-    }
-
-    public function setIsResponse(?bool $is_response): self
-    {
-        $this->is_response = $is_response;
 
         return $this;
     }
