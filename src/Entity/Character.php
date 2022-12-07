@@ -53,6 +53,15 @@ class Character
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $job = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $clan = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $is_validate = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $created_at = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -150,6 +159,42 @@ class Character
     public function setJob(?string $job): self
     {
         $this->job = $job;
+
+        return $this;
+    }
+
+    public function getClan(): ?string
+    {
+        return $this->clan;
+    }
+
+    public function setClan(string $clan): self
+    {
+        $this->clan = $clan;
+
+        return $this;
+    }
+
+    public function isIsValidate(): ?bool
+    {
+        return $this->is_validate;
+    }
+
+    public function setIsValidate(?bool $is_validate): self
+    {
+        $this->is_validate = $is_validate;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
 
         return $this;
     }
