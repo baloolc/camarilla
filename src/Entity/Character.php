@@ -32,7 +32,7 @@ class Character
 
     #[Assert\Url]
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $link = null;
+    private ?string $linkCharacter = null;
 
     #[Assert\NotBlank()]
     #[Assert\Length(
@@ -49,6 +49,9 @@ class Character
 
     #[ORM\Column(nullable: true)]
     private ?bool $is_harpie = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $job = null;
 
     public function getId(): ?int
     {
@@ -79,14 +82,14 @@ class Character
         return $this;
     }
 
-    public function getLink(): ?string
+    public function getLinkCharacter(): ?string
     {
-        return $this->link;
+        return $this->linkCharacter;
     }
 
-    public function setLink(?string $link): self
+    public function setLinkCharacter(?string $linkCharacter): self
     {
-        $this->link = $link;
+        $this->linkCharacter = $linkCharacter;
 
         return $this;
     }
@@ -135,6 +138,18 @@ class Character
     public function setIsHarpie(?bool $is_harpie): self
     {
         $this->is_harpie = $is_harpie;
+
+        return $this;
+    }
+
+    public function getJob(): ?string
+    {
+        return $this->job;
+    }
+
+    public function setJob(?string $job): self
+    {
+        $this->job = $job;
 
         return $this;
     }

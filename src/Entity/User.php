@@ -62,22 +62,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         max: 255,
     )]
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $avatar = null;
+    private ?string $userAvatar = null;
 
     #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'user_id')]
     private Collection $events;
 
-    #[ORM\ManyToMany(targetEntity: Offside::class, mappedBy: 'user_id')]
-    private Collection $offsides;
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $created_at = null;
+    private ?\DateTimeInterface $created_at;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $is_activate = null;
 
     public function __construct()
     {
         $this->character_id = new ArrayCollection();
         $this->events = new ArrayCollection();
-        $this->offsides = new ArrayCollection();
     }
 
 
@@ -205,14 +204,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getAvatar(): ?string
+    public function getUserAvatar(): ?string
     {
-        return $this->avatar;
+        return $this->userAvatarar;
     }
 
-    public function setAvatar(?string $avatar): self
+    public function setUserAvatar(?string $userAvatar): self
     {
-        $this->avatar = $avatar;
+        $this->userAvatar = $userAvatar;
 
         return $this;
     }
@@ -244,34 +243,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Offside>
-     */
-    public function getOffsides(): Collection
-    {
-        return $this->offsides;
-    }
-
-    public function addOffside(Offside $offside): self
-    {
-        if (!$this->offsides->contains($offside)) {
-            $this->offsides->add($offside);
-            $offside->addUserId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOffside(Offside $offside): self
-    {
-        if ($this->offsides->removeElement($offside)) {
-            $offside->removeUserId($this);
-        }
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->created_at;
     }
@@ -279,6 +251,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function isIsActivate(): ?bool
+    {
+        return $this->is_activate;
+    }
+
+    public function setIsActivate(?bool $is_activate): self
+    {
+        $this->is_activate = $is_activate;
 
         return $this;
     }
