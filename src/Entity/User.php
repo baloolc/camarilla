@@ -38,8 +38,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Length(
         max: 255
     )]
+    #[Assert\NotBlank()]
     #[ORM\Column]
-    private ?string $password = null;
+    private ?string $password;
 
     #[Assert\NotBlank()]
     #[Assert\Length(
@@ -67,16 +68,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'user_id')]
     private Collection $events;
 
+    #[Assert\NotBlank()]
+    #[Assert\DateTime]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $created_at;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $is_activate = null;
+    #[Assert\PositiveOrZero]
+    #[Assert\NotBlank()]
+    #[ORM\Column()]
+    private ?bool $is_activate;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: OffsideResponse::class)]
+    private Collection $offsideResponses;
 
     public function __construct()
     {
         $this->character_id = new ArrayCollection();
         $this->events = new ArrayCollection();
+        $this->offsideResponses = new ArrayCollection();
     }
 
 
@@ -206,7 +215,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getUserAvatar(): ?string
     {
-        return $this->userAvatarar;
+        return $this->userAvatar;
     }
 
     public function setUserAvatar(?string $userAvatar): self
@@ -263,6 +272,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsActivate(?bool $is_activate): self
     {
         $this->is_activate = $is_activate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OffsideResponse>
+     */
+    public function getOffsideResponses(): Collection
+    {
+        return $this->offsideResponses;
+    }
+
+    public function addOffsideResponse(OffsideResponse $offsideResponse): self
+    {
+        if (!$this->offsideResponses->contains($offsideResponse)) {
+            $this->offsideResponses->add($offsideResponse);
+            $offsideResponse->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffsideResponse(OffsideResponse $offsideResponse): self
+    {
+        if ($this->offsideResponses->removeElement($offsideResponse)) {
+            // set the owning side to null (unless already changed)
+            if ($offsideResponse->getUser() === $this) {
+                $offsideResponse->setUser(null);
+            }
+        }
 
         return $this;
     }

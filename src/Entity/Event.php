@@ -23,14 +23,30 @@ class Event
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
-    #[ORM\Column(length: 100, nullable: true)]
-    private ?string $title = null;
+    #[Assert\NotBlank()]
+    #[Assert\Length(
+        max: 100,
+    )]
+    #[ORM\Column(length: 100)]
+    private ?string $title;
 
+    #[Assert\NotBlank()]
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $description = null;
+    private ?string $description;
 
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'events')]
     private Collection $user_id;
+
+    #[Assert\Length(
+        max: 100,
+    )]
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $alt_text = null;
+
+    #[Assert\DateTime]
+    #[Assert\NotBlank()]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $created_at = null;
 
     public function __construct()
     {
@@ -98,6 +114,30 @@ class Event
     public function removeUserId(User $userId): self
     {
         $this->user_id->removeElement($userId);
+
+        return $this;
+    }
+
+    public function getAltText(): ?string
+    {
+        return $this->alt_text;
+    }
+
+    public function setAltText(string $alt_text): self
+    {
+        $this->alt_text = $alt_text;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
 
         return $this;
     }

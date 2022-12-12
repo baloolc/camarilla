@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Offside;
+use App\Entity\OffsideCategory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Offside>
+ * @extends ServiceEntityRepository<OffsideCategory>
  *
- * @method Offside|null find($id, $lockMode = null, $lockVersion = null)
- * @method Offside|null findOneBy(array $criteria, array $orderBy = null)
- * @method Offside[]    findAll()
- * @method Offside[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method OffsideCategory|null find($id, $lockMode = null, $lockVersion = null)
+ * @method OffsideCategory|null findOneBy(array $criteria, array $orderBy = null)
+ * @method OffsideCategory[]    findAll()
+ * @method OffsideCategory[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class OffsideRepository extends ServiceEntityRepository
+class OffsideCategoryRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Offside::class);
+        parent::__construct($registry, OffsideCategory::class);
     }
 
-    public function save(Offside $entity, bool $flush = false): void
+    public function save(OffsideCategory $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class OffsideRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Offside $entity, bool $flush = false): void
+    public function remove(OffsideCategory $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class OffsideRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Offside[] Returns an array of Offside objects
+//     * @return OffsideCategory[] Returns an array of OffsideCategory objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class OffsideRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Offside
+//    public function findOneBySomeField($value): ?OffsideCategory
 //    {
 //        return $this->createQueryBuilder('o')
 //            ->andWhere('o.exampleField = :val')
