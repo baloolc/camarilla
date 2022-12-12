@@ -3,11 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\CharacterRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-
+#[UniqueEntity(fields: ['name'])]
 #[ORM\Entity(repositoryClass: CharacterRepository::class)]
 #[ORM\Table(name: '`character`')]
 class Character
@@ -21,7 +24,7 @@ class Character
     #[Assert\Length(
         max: 200,
     )]
-    #[ORM\Column(length: 200)]
+    #[ORM\Column(length: 200, unique: true)]
     private ?string $name;
 
     #[Assert\Length(
@@ -41,26 +44,46 @@ class Character
     #[ORM\Column(length: 50)]
     private ?string $ageStatus;
 
-    #[ORM\Column(length: 255,nullable: true)]
+    #[ORM\Column(type: Types::TEXT, length: 255,nullable: true)]
     private ?string $recognized = null;
 
     #[ORM\ManyToOne(inversedBy: 'character_id')]
     private ?User $user = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $is_harpie = null;
+    #[Assert\PositiveOrZero]
+    #[Assert\NotBlank()]
+    #[ORM\Column()]
+    private ?bool $is_harpie;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Length(
+        max: 50,
+    )]
+    #[ORM\Column(length: 50, nullable: true)]
     private ?string $job = null;
 
-    #[ORM\Column(length: 255)]
+    #[Assert\Length(
+        max: 50,
+    )]
+    #[ORM\Column(length: 50)]
     private ?string $clan = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $is_validate = null;
+    #[Assert\PositiveOrZero]
+    #[Assert\NotBlank()]
+    #[ORM\Column()]
+    private ?bool $is_validate;
 
+    #[Assert\DateTime]
+    #[Assert\NotBlank()]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $created_at = null;
+    private ?\DateTimeInterface $created_at;
+
+    #[ORM\OneToMany(mappedBy: 'characterPlay', targetEntity: InGameResponse::class)]
+    private Collection $inGameResponses;
+
+    public function __construct()
+    {
+        $this->inGameResponses = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -195,6 +218,36 @@ class Character
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, InGameResponse>
+     */
+    public function getInGameResponses(): Collection
+    {
+        return $this->inGameResponses;
+    }
+
+    public function addInGameResponse(InGameResponse $inGameResponse): self
+    {
+        if (!$this->inGameResponses->contains($inGameResponse)) {
+            $this->inGameResponses->add($inGameResponse);
+            $inGameResponse->setCharacterPlay($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInGameResponse(InGameResponse $inGameResponse): self
+    {
+        if ($this->inGameResponses->removeElement($inGameResponse)) {
+            // set the owning side to null (unless already changed)
+            if ($inGameResponse->getCharacterPlay() === $this) {
+                $inGameResponse->setCharacterPlay(null);
+            }
+        }
 
         return $this;
     }
