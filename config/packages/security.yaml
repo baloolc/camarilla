@@ -1,9 +1,4 @@
 security:
-    role_hierarchy:
-        ROLE_USER: ROLE_USER
-        ROLE_STORYTELLER: ROLE_STORYTELLER
-        ROLE_DESK: ROLE_DESK
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
     enable_authenticator_manager: true
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
@@ -32,9 +27,14 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-         - { path: ^/admin, roles: ROLE_SUPER_ADMIN }
-         - { path: ^/conteur, roles: ROLE_STORYTELLER }
-         - { path: ^/bureau, roles: ROLE_DESK }
+         #- { path: ^/admin, roles: ROLE_SUPER_ADMIN }
+         #- { path: ^/conteur, roles: ROLE_STORYTELLER }
+         #- { path: ^/bureau, roles: ROLE_DESK }
+
+    role_hierarchy:
+        ROLE_STORYTELLER: ROLE_USER
+        ROLE_DESK: ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_STORYTELLER, ROLE_DESK]
 
 when@test:
     security:
