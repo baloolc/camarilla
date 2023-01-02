@@ -1,0 +1,37 @@
+<nav class="sidenav d-flex flex-column sticky-xl-top p-3 bg-dark">
+	{% for character in characters %}
+		<img src="{{ character.avatar }}" alt="{{ character.label }}">
+        <h2>{{ character.name}}</h2>
+        <h3>{{ character.ageStatus}}</h3>
+	{% endfor %}
+	<div>
+		<button class="dropdown-btn">Hors jeu
+			<i class="fa fa-caret-down"></i>
+		</button>
+		<div class="dropdown-container">
+			{% for offsideCategory in offsideCategories %}
+				<a href="#">{{ offsideCategory.name }}</a>
+			{% endfor %}
+		</div>
+		<button class="dropdown-btn">EJ Evry
+			<i class="fa fa-caret-down"></i>
+		</button>
+		<div class="dropdown-container">
+			{% for inGameCategory in inGameCategories %}
+				<a href="#">{{ inGameCategory.name }}</a>
+			{% endfor %}
+		</div>
+		<button class="dropdown-btn">Clan
+			<i class="fa fa-caret-down"></i>
+		</button>
+		<div class="dropdown-container">
+			{% for character in characters %}
+				<a href="#">{{ character.clan }}</a>
+			{% endfor %}
+		</div>
+		<a href="#" class="">
+			<i class="bi bi-envelope"></i>Messagerie</a>
+		<a href="#" class="">
+			<i class="bi bi-house-fill"></i>Accueil forum</a>
+	</div>
+</nav>

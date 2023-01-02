@@ -80,6 +80,13 @@ class Character
     #[ORM\OneToMany(mappedBy: 'characterPlay', targetEntity: InGameResponse::class)]
     private Collection $inGameResponses;
 
+    #[Assert\NotBlank()]
+    #[Assert\Length(
+        max: 100,
+    )]
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $label = null;
+
     public function __construct()
     {
         $this->inGameResponses = new ArrayCollection();
@@ -248,6 +255,18 @@ class Character
                 $inGameResponse->setCharacterPlay(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLabel(): ?string
+    {
+        return $this->label;
+    }
+
+    public function setLabel(?string $label): self
+    {
+        $this->label = $label;
 
         return $this;
     }
