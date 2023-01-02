@@ -1,7 +1,7 @@
 @import "variable.scss";
 
 .imgContact {
-    height: 50.9rem;
+    height: clamp(min(53.3rem), 10vh, max(65rem)) ;
     background-image: url("../images/contact.jpg");
     background-position: center;
     background-size: cover;
