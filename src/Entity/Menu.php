@@ -33,10 +33,14 @@ class Menu
     #[ORM\OneToMany(mappedBy: 'menu', targetEntity: InGameCategory::class)]
     private Collection $inGameCategory;
 
+    #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'subMenus')]
+    private Collection $subMenus;
+
     public function __construct()
     {
         $this->offsideCategory = new ArrayCollection();
         $this->inGameCategory = new ArrayCollection();
+        $this->subMenus = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -124,6 +128,30 @@ class Menu
                 $inGameCategory->setMenu(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getSubMenus(): Collection
+    {
+        return $this->subMenus;
+    }
+
+    public function addSubMenu(self $subMenu): self
+    {
+        if (!$this->subMenus->contains($subMenu)) {
+            $this->subMenus->add($subMenu);
+        }
+
+        return $this;
+    }
+
+    public function removeSubMenu(self $subMenu): self
+    {
+        $this->subMenus->removeElement($subMenu);
 
         return $this;
     }
