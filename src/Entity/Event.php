@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Model\TimestampedInterface;
 use App\Repository\EventRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
-class Event
+class Event implements TimestampedInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -44,9 +45,15 @@ class Event
     private ?string $alt_text = null;
 
     #[Assert\DateTime]
-    #[Assert\NotBlank()]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $created_at = null;
+    private ?\DateTimeInterface $createdAt;
+
+    #[Assert\NotBlank()]
+    #[Assert\Length(
+        max: 100,
+    )]
+    #[ORM\Column(length: 100)]
+    private ?string $slug = null;
 
     public function __construct()
     {
@@ -132,12 +139,24 @@ class Event
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

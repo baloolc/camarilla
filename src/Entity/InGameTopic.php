@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Model\TimestampedInterface;
 use App\Repository\InGameTopicRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: InGameTopicRepository::class)]
-class InGameTopic
+class InGameTopic implements TimestampedInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

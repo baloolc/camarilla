@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Model\TimestampedInterface;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -14,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'])]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, TimestampedInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -57,7 +58,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $firstname;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Character::class)]
-    private Collection $character_id;
+    private Collection $characters;
 
     #[Assert\Length(
         max: 255,
@@ -83,7 +84,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-        $this->character_id = new ArrayCollection();
+        $this->characters = new ArrayCollection();
         $this->events = new ArrayCollection();
         $this->offsideResponses = new ArrayCollection();
     }
@@ -184,29 +185,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Character>
+     * @return Collection<int, Characters>
      */
-    public function getCharacterId(): Collection
+    public function getCharacters(): Collection
     {
-        return $this->character_id;
+        return $this->characters;
     }
 
-    public function addCharacterId(Character $characterId): self
+    public function addCharacters(Character $characters): self
     {
-        if (!$this->character_id->contains($characterId)) {
-            $this->character_id->add($characterId);
-            $characterId->setUser($this);
+        if (!$this->characters->contains($characters)) {
+            $this->characters->add($characters);
+            $characters->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeCharacterId(Character $characterId): self
+    public function removeCharacters(Character $characters): self
     {
-        if ($this->character_id->removeElement($characterId)) {
+        if ($this->characters->removeElement($characters)) {
             // set the owning side to null (unless already changed)
-            if ($characterId->getUser() === $this) {
-                $characterId->setUser(null);
+            if ($characters->getUser() === $this) {
+                $characters->setUser(null);
             }
         }
 

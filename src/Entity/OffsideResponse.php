@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
+use App\Model\TimestampedInterface;
 use App\Repository\OffsideResponseRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: OffsideResponseRepository::class)]
-class OffsideResponse
+class OffsideResponse implements TimestampedInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

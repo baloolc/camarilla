@@ -1,0 +1,10 @@
+@import "variable.scss";
+
+.imgHomeForum {
+    height: 50vh;
+    background-image: url("../images/homeForum.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}

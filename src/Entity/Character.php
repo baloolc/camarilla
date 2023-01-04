@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Model\TimestampedInterface;
 use App\Repository\CharacterRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,7 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[UniqueEntity(fields: ['name'])]
 #[ORM\Entity(repositoryClass: CharacterRepository::class)]
 #[ORM\Table(name: '`character`')]
-class Character
+class Character implements TimestampedInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -47,7 +48,7 @@ class Character
     #[ORM\Column(type: Types::TEXT, length: 255,nullable: true)]
     private ?string $recognized = null;
 
-    #[ORM\ManyToOne(inversedBy: 'character_id')]
+    #[ORM\ManyToOne(inversedBy: 'character')]
     private ?User $user = null;
 
     #[Assert\PositiveOrZero]

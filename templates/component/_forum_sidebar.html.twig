@@ -1,9 +1,7 @@
-<nav class="sidenav d-flex flex-column sticky-xl-top p-3 bg-dark">
-	{% for character in characters %}
+<nav id="sidebar" class="sidenav d-flex flex-column sticky-xl-top p-3 bg-dark">
 		<img src="{{ character.avatar }}" alt="{{ character.label }}">
         <h2>{{ character.name}}</h2>
         <h3>{{ character.ageStatus}}</h3>
-	{% endfor %}
 	<div>
 		<button class="dropdown-btn">Hors jeu
 			<i class="fa fa-caret-down"></i>
@@ -25,9 +23,7 @@
 			<i class="fa fa-caret-down"></i>
 		</button>
 		<div class="dropdown-container">
-			{% for character in characters %}
 				<a href="#">{{ character.clan }}</a>
-			{% endfor %}
 		</div>
 		<a href="#" class="">
 			<i class="bi bi-envelope"></i>Messagerie</a>

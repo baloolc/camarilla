@@ -5,6 +5,25 @@
 				<a href="/"><img src="{{ asset('build/images/logo.png') }}" class="w-75" alt="Logo"/></a>
 			</div>
 		</div>
+		<div class="">
+			<div class="dropdown">
+				<a class="btn btn-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					Profil
+				</a>
+
+				<ul class="dropdown-menu dropdown-menu-dark bg-primary">
+					<li>
+						<a class="dropdown-item text-light" href="{{ path('admin') }}">Tableau de bord</a>
+					</li>
+					<li>
+						<a class="dropdown-item text-light" href="#">Another action</a>
+					</li>
+					<li>
+						<a class="dropdown-item text-light" href="#">Something else here</a>
+					</li>
+				</ul>
+			</div>
+		</div>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
