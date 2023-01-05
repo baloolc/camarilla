@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20221212184449 extends AbstractMigration
+final class Version20230105163756 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,13 +20,14 @@ final class Version20221212184449 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE `character` (id INT AUTO_INCREMENT NOT NULL, user_id INT DEFAULT NULL, name VARCHAR(200) NOT NULL, avatar VARCHAR(255) DEFAULT NULL, link_character LONGTEXT DEFAULT NULL, age_status VARCHAR(50) NOT NULL, recognized TINYTEXT DEFAULT NULL, is_harpie TINYINT(1) NOT NULL, job VARCHAR(50) DEFAULT NULL, clan VARCHAR(50) NOT NULL, is_validate TINYINT(1) NOT NULL, created_at DATETIME NOT NULL, UNIQUE INDEX UNIQ_937AB0345E237E06 (name), INDEX IDX_937AB034A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE event (id INT AUTO_INCREMENT NOT NULL, image VARCHAR(255) DEFAULT NULL, title VARCHAR(100) NOT NULL, description LONGTEXT NOT NULL, alt_text VARCHAR(100) DEFAULT NULL, created_at DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE `character` (id INT AUTO_INCREMENT NOT NULL, user_id INT DEFAULT NULL, name VARCHAR(200) NOT NULL, avatar VARCHAR(255) DEFAULT NULL, link_character LONGTEXT DEFAULT NULL, age_status VARCHAR(50) NOT NULL, recognized TINYTEXT DEFAULT NULL, is_harpie TINYINT(1) NOT NULL, job VARCHAR(50) DEFAULT NULL, clan VARCHAR(50) NOT NULL, is_validate TINYINT(1) NOT NULL, created_at DATETIME NOT NULL, label VARCHAR(100) DEFAULT NULL, UNIQUE INDEX UNIQ_937AB0345E237E06 (name), INDEX IDX_937AB034A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE event (id INT AUTO_INCREMENT NOT NULL, image VARCHAR(255) DEFAULT NULL, title VARCHAR(100) NOT NULL, description LONGTEXT NOT NULL, alt_text VARCHAR(100) DEFAULT NULL, created_at DATETIME NOT NULL, slug VARCHAR(100) NOT NULL, event_date DATETIME DEFAULT NULL, filename VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE event_user (event_id INT NOT NULL, user_id INT NOT NULL, INDEX IDX_92589AE271F7E88B (event_id), INDEX IDX_92589AE2A76ED395 (user_id), PRIMARY KEY(event_id, user_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE in_game_category (id INT AUTO_INCREMENT NOT NULL, menu_id INT DEFAULT NULL, name VARCHAR(100) NOT NULL, slug VARCHAR(100) NOT NULL, description LONGTEXT DEFAULT NULL, UNIQUE INDEX UNIQ_742F4A945E237E06 (name), INDEX IDX_742F4A94CCD7E912 (menu_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE in_game_response (id INT AUTO_INCREMENT NOT NULL, in_game_topic_id INT NOT NULL, character_play_id INT DEFAULT NULL, created_at DATETIME NOT NULL, content LONGTEXT NOT NULL, INDEX IDX_4C1858AE6D367368 (in_game_topic_id), INDEX IDX_4C1858AE4CF2ED80 (character_play_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE in_game_topic (id INT AUTO_INCREMENT NOT NULL, in_game_category_id INT NOT NULL, title VARCHAR(100) NOT NULL, content LONGTEXT NOT NULL, upload_file VARCHAR(255) DEFAULT NULL, slug VARCHAR(100) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, is_read TINYINT(1) NOT NULL, INDEX IDX_E0CECF223D1C4FBE (in_game_category_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE menu (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(100) NOT NULL, menu_order INT DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE menu_menu (menu_source INT NOT NULL, menu_target INT NOT NULL, INDEX IDX_B54ACADD8CCD27AB (menu_source), INDEX IDX_B54ACADD95287724 (menu_target), PRIMARY KEY(menu_source, menu_target)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE offside_category (id INT AUTO_INCREMENT NOT NULL, menu_id INT DEFAULT NULL, name VARCHAR(100) NOT NULL, slug VARCHAR(100) NOT NULL, UNIQUE INDEX UNIQ_E448D0345E237E06 (name), INDEX IDX_E448D034CCD7E912 (menu_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE offside_response (id INT AUTO_INCREMENT NOT NULL, offside_topic_id INT NOT NULL, user_id INT NOT NULL, created_at DATETIME NOT NULL, content LONGTEXT NOT NULL, INDEX IDX_DC7FC20EFD51E9C8 (offside_topic_id), INDEX IDX_DC7FC20EA76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE offside_topic (id INT AUTO_INCREMENT NOT NULL, offside_category_id INT NOT NULL, title VARCHAR(100) NOT NULL, created_at DATETIME NOT NULL, content LONGTEXT NOT NULL, slug VARCHAR(100) NOT NULL, updated_at DATETIME DEFAULT NULL, is_read TINYINT(1) NOT NULL, INDEX IDX_9FD28B39BC1C8425 (offside_category_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -40,6 +41,8 @@ final class Version20221212184449 extends AbstractMigration
         $this->addSql('ALTER TABLE in_game_response ADD CONSTRAINT FK_4C1858AE6D367368 FOREIGN KEY (in_game_topic_id) REFERENCES in_game_topic (id)');
         $this->addSql('ALTER TABLE in_game_response ADD CONSTRAINT FK_4C1858AE4CF2ED80 FOREIGN KEY (character_play_id) REFERENCES `character` (id)');
         $this->addSql('ALTER TABLE in_game_topic ADD CONSTRAINT FK_E0CECF223D1C4FBE FOREIGN KEY (in_game_category_id) REFERENCES in_game_category (id)');
+        $this->addSql('ALTER TABLE menu_menu ADD CONSTRAINT FK_B54ACADD8CCD27AB FOREIGN KEY (menu_source) REFERENCES menu (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE menu_menu ADD CONSTRAINT FK_B54ACADD95287724 FOREIGN KEY (menu_target) REFERENCES menu (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE offside_category ADD CONSTRAINT FK_E448D034CCD7E912 FOREIGN KEY (menu_id) REFERENCES menu (id)');
         $this->addSql('ALTER TABLE offside_response ADD CONSTRAINT FK_DC7FC20EFD51E9C8 FOREIGN KEY (offside_topic_id) REFERENCES offside_topic (id)');
         $this->addSql('ALTER TABLE offside_response ADD CONSTRAINT FK_DC7FC20EA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
@@ -56,6 +59,8 @@ final class Version20221212184449 extends AbstractMigration
         $this->addSql('ALTER TABLE in_game_response DROP FOREIGN KEY FK_4C1858AE6D367368');
         $this->addSql('ALTER TABLE in_game_response DROP FOREIGN KEY FK_4C1858AE4CF2ED80');
         $this->addSql('ALTER TABLE in_game_topic DROP FOREIGN KEY FK_E0CECF223D1C4FBE');
+        $this->addSql('ALTER TABLE menu_menu DROP FOREIGN KEY FK_B54ACADD8CCD27AB');
+        $this->addSql('ALTER TABLE menu_menu DROP FOREIGN KEY FK_B54ACADD95287724');
         $this->addSql('ALTER TABLE offside_category DROP FOREIGN KEY FK_E448D034CCD7E912');
         $this->addSql('ALTER TABLE offside_response DROP FOREIGN KEY FK_DC7FC20EFD51E9C8');
         $this->addSql('ALTER TABLE offside_response DROP FOREIGN KEY FK_DC7FC20EA76ED395');
@@ -67,6 +72,7 @@ final class Version20221212184449 extends AbstractMigration
         $this->addSql('DROP TABLE in_game_response');
         $this->addSql('DROP TABLE in_game_topic');
         $this->addSql('DROP TABLE menu');
+        $this->addSql('DROP TABLE menu_menu');
         $this->addSql('DROP TABLE offside_category');
         $this->addSql('DROP TABLE offside_response');
         $this->addSql('DROP TABLE offside_topic');

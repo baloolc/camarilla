@@ -42,18 +42,26 @@ class Event implements TimestampedInterface
         max: 100,
     )]
     #[ORM\Column(length: 100, nullable: true)]
-    private ?string $alt_text = null;
+    private ?string $altText = null;
 
-    #[Assert\DateTime]
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt;
 
-    #[Assert\NotBlank()]
     #[Assert\Length(
         max: 100,
     )]
     #[ORM\Column(length: 100)]
-    private ?string $slug = null;
+    private ?string $slug;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $eventDate = null;
+
+    #[Assert\Length(
+        max: 255,
+    )]
+    #[ORM\Column(length: 255)]
+    private ?string $filename = null;
 
     public function __construct()
     {
@@ -127,12 +135,12 @@ class Event implements TimestampedInterface
 
     public function getAltText(): ?string
     {
-        return $this->alt_text;
+        return $this->altText;
     }
 
-    public function setAltText(string $alt_text): self
+    public function setAltText(string $altText): self
     {
-        $this->alt_text = $alt_text;
+        $this->altText = $altText;
 
         return $this;
     }
@@ -159,5 +167,34 @@ class Event implements TimestampedInterface
         $this->slug = $slug;
 
         return $this;
+    }
+
+    public function getEventDate(): ?\DateTimeInterface
+    {
+        return $this->eventDate;
+    }
+
+    public function setEventDate(?\DateTimeInterface $eventDate): self
+    {
+        $this->eventDate = $eventDate;
+
+        return $this;
+    }
+
+    public function getFilename(): ?string
+    {
+        return $this->filename;
+    }
+
+    public function setFilename(string $filename): self
+    {
+        $this->filename = $filename;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->title;
     }
 }

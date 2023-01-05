@@ -5,6 +5,8 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     mailer_bureau: '%env(resolve:MAILER_FROM_ADDRESS)%'
+    medias_event: 'public/uploads/eventMedia'
+    uploads_event: 'uploads/eventMedia'
 services:
     # default configuration for services in *this* file
     _defaults:

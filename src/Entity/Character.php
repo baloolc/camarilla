@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[UniqueEntity(fields: ['name'])]
 #[ORM\Entity(repositoryClass: CharacterRepository::class)]
 #[ORM\Table(name: '`character`')]
-class Character implements TimestampedInterface
+class Character
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -74,9 +74,8 @@ class Character implements TimestampedInterface
     private ?bool $is_validate;
 
     #[Assert\DateTime]
-    #[Assert\NotBlank()]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $created_at;
+    private ?\DateTimeInterface $createdAt;
 
     #[ORM\OneToMany(mappedBy: 'characterPlay', targetEntity: InGameResponse::class)]
     private Collection $inGameResponses;
@@ -220,12 +219,12 @@ class Character implements TimestampedInterface
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }

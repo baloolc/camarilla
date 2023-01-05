@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: InGameResponseRepository::class)]
-class InGameResponse implements TimestampedInterface
+class InGameResponse
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -17,9 +17,8 @@ class InGameResponse implements TimestampedInterface
     private ?int $id = null;
 
     #[Assert\DateTime]
-    #[Assert\NotBlank()]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $created_at;
+    private ?\DateTimeInterface $createdAt;
 
     #[Assert\NotBlank()]
     #[ORM\Column(type: Types::TEXT)]
@@ -40,12 +39,12 @@ class InGameResponse implements TimestampedInterface
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }

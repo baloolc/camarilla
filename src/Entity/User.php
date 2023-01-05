@@ -15,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'])]
-class User implements UserInterface, PasswordAuthenticatedUserInterface, TimestampedInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -69,10 +69,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Timesta
     #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'user_id')]
     private Collection $events;
 
-    #[Assert\NotBlank()]
     #[Assert\DateTime]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $created_at;
+    private ?\DateTimeInterface $createdAt;
 
     #[Assert\PositiveOrZero]
     #[Assert\NotBlank()]
@@ -255,12 +254,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Timesta
 
     public function getCreatedAt(): \DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
