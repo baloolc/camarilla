@@ -4,25 +4,23 @@ namespace App\Entity;
 
 use App\Model\TimestampedInterface;
 use App\Repository\EventRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTime;
+use DateTimeImmutable;
+use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
+#[Vich\Uploadable]
 class Event implements TimestampedInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[Assert\Length(
-        max: 255,
-    )]
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $image = null;
 
     #[Assert\NotBlank()]
     #[Assert\Length(
@@ -34,9 +32,6 @@ class Event implements TimestampedInterface
     #[Assert\NotBlank()]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description;
-
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'events')]
-    private Collection $user_id;
 
     #[Assert\Length(
         max: 100,
@@ -57,32 +52,43 @@ class Event implements TimestampedInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $eventDate = null;
 
+    #[Vich\UploadableField(mapping: 'event_file', fileNameProperty: 'filename')]
+    #[Assert\File(
+
+        maxSize: '500K',
+    
+        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+    
+    )]
+    private ?File $filenameFile = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?DateTimeInterface $updatedAt = null;
+
     #[Assert\Length(
         max: 255,
     )]
     #[ORM\Column(length: 255)]
-    private ?string $filename = null;
+    private ?string $filename = '';
+
+    #[Assert\PositiveOrZero]
+    #[ORM\Column(nullable: true)]
+    private ?int $nbParticipant = null;
+
+    #[Assert\Length(
+        max: 50,
+    )]
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $status = null;
 
     public function __construct()
     {
-        $this->user_id = new ArrayCollection();
+        $this->updatedAt = new DateTimeImmutable();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(?string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
     }
 
     public function getTitle(): ?string
@@ -105,30 +111,6 @@ class Event implements TimestampedInterface
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUserId(): Collection
-    {
-        return $this->user_id;
-    }
-
-    public function addUserId(User $userId): self
-    {
-        if (!$this->user_id->contains($userId)) {
-            $this->user_id->add($userId);
-        }
-
-        return $this;
-    }
-
-    public function removeUserId(User $userId): self
-    {
-        $this->user_id->removeElement($userId);
 
         return $this;
     }
@@ -186,9 +168,9 @@ class Event implements TimestampedInterface
         return $this->filename;
     }
 
-    public function setFilename(string $filename): self
+    public function setFilename(?string $filename): ?self
     {
-        $this->filename = $filename;
+            $this->filename = $filename;
 
         return $this;
     }
@@ -196,5 +178,56 @@ class Event implements TimestampedInterface
     public function __toString(): string
     {
         return $this->title;
+    }
+
+    public function getNbParticipant(): ?int
+    {
+        return $this->nbParticipant;
+    }
+
+    public function setNbParticipant(?int $nbParticipant): self
+    {
+        $this->nbParticipant = $nbParticipant;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function setFilenameFile(File $image = null): Event
+
+    {
+        $this->filenameFile = $image;
+
+        return $this;
+    }
+
+
+    public function getFilenameFile(): ?File
+    {
+
+        return $this->filenameFile;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
     }
 }

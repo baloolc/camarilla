@@ -1,0 +1,15 @@
+vich_uploader:
+    db_driver: orm
+
+    metadata:
+        type: attribute
+
+    mappings:
+        event_file:
+            uri_prefix: /images/events
+            upload_destination: '%uploads_event%'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+            inject_on_load: false
+            delete_on_update: false
+            delete_on_remove: true

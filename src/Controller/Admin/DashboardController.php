@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Character;
 use App\Entity\Event;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -55,6 +56,11 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::subMenu('Évènnements', 'fa-regular fa-calendar-days')->setSubItems([
             MenuItem::linkToCrud('Tous les évènnements', 'fa-solid fa-arrow-right', Event::class),
             MenuItem::linkToCrud('Ajouter', 'fas fa-plus', Event::class)->setAction(Crud::PAGE_NEW),
+        ]);
+
+        yield MenuItem::subMenu('Personnages', 'fa-sharp fa-solid fa-id-card')->setSubItems([
+            MenuItem::linkToCrud('Tous les personnages', 'fa-solid fa-arrow-right', Character::class),
+            MenuItem::linkToCrud('Ajouter', 'fa-solid fa-person-circle-plus', Character::class)->setAction(Crud::PAGE_NEW),
         ]);
     }
 }

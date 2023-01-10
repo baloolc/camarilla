@@ -57,18 +57,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 200)]
     private ?string $firstname;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Character::class)]
-    private Collection $characters;
-
-    #[Assert\Length(
-        max: 255,
-    )]
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $userAvatar = null;
-
-    #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'user_id')]
-    private Collection $events;
-
     #[Assert\DateTime]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt;
@@ -77,17 +65,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank()]
     #[ORM\Column()]
     private ?bool $is_activate;
-
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: OffsideResponse::class)]
-    private Collection $offsideResponses;
-
-    public function __construct()
-    {
-        $this->characters = new ArrayCollection();
-        $this->events = new ArrayCollection();
-        $this->offsideResponses = new ArrayCollection();
-    }
-
 
     public function getId(): ?int
     {
@@ -183,75 +160,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Characters>
-     */
-    public function getCharacters(): Collection
-    {
-        return $this->characters;
-    }
-
-    public function addCharacters(Character $characters): self
-    {
-        if (!$this->characters->contains($characters)) {
-            $this->characters->add($characters);
-            $characters->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCharacters(Character $characters): self
-    {
-        if ($this->characters->removeElement($characters)) {
-            // set the owning side to null (unless already changed)
-            if ($characters->getUser() === $this) {
-                $characters->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getUserAvatar(): ?string
-    {
-        return $this->userAvatar;
-    }
-
-    public function setUserAvatar(?string $userAvatar): self
-    {
-        $this->userAvatar = $userAvatar;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Event>
-     */
-    public function getEvents(): Collection
-    {
-        return $this->events;
-    }
-
-    public function addEvent(Event $event): self
-    {
-        if (!$this->events->contains($event)) {
-            $this->events->add($event);
-            $event->addUserId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEvent(Event $event): self
-    {
-        if ($this->events->removeElement($event)) {
-            $event->removeUserId($this);
-        }
-
-        return $this;
-    }
-
     public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
@@ -272,36 +180,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsActivate(?bool $is_activate): self
     {
         $this->is_activate = $is_activate;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, OffsideResponse>
-     */
-    public function getOffsideResponses(): Collection
-    {
-        return $this->offsideResponses;
-    }
-
-    public function addOffsideResponse(OffsideResponse $offsideResponse): self
-    {
-        if (!$this->offsideResponses->contains($offsideResponse)) {
-            $this->offsideResponses->add($offsideResponse);
-            $offsideResponse->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOffsideResponse(OffsideResponse $offsideResponse): self
-    {
-        if ($this->offsideResponses->removeElement($offsideResponse)) {
-            // set the owning side to null (unless already changed)
-            if ($offsideResponse->getUser() === $this) {
-                $offsideResponse->setUser(null);
-            }
-        }
 
         return $this;
     }
