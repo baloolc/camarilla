@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Advertisement;
 use App\Entity\Character;
 use App\Entity\Event;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -14,7 +15,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
-    public function __construct( private AdminUrlGenerator $adminUrlGenerator)
+    public function __construct( 
+        private AdminUrlGenerator $adminUrlGenerator
+    )
     {
         
     }
@@ -54,12 +57,17 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToRoute('Retourner sur le site', 'fa fa-undo', 'home');
 
         yield MenuItem::subMenu('Évènnements', 'fa-regular fa-calendar-days')->setSubItems([
-            MenuItem::linkToCrud('Tous les évènnements', 'fa-solid fa-arrow-right', Event::class),
+            MenuItem::linkToCrud('Tous les évènnements', 'fa-solid fa-users-rectangle', Event::class),
             MenuItem::linkToCrud('Ajouter', 'fas fa-plus', Event::class)->setAction(Crud::PAGE_NEW),
         ]);
 
+        yield MenuItem::subMenu('Annonces', 'fa-solid fa-rectangle-ad')->setSubItems([
+            MenuItem::linkToCrud('Toutes les annonces', 'fa-solid fa-clipboard', Advertisement::class),
+            MenuItem::linkToCrud('Ajouter', 'fas fa-plus', Advertisement::class)->setAction(Crud::PAGE_NEW),
+        ]);
+
         yield MenuItem::subMenu('Personnages', 'fa-sharp fa-solid fa-id-card')->setSubItems([
-            MenuItem::linkToCrud('Tous les personnages', 'fa-solid fa-arrow-right', Character::class),
+            MenuItem::linkToCrud('Tous les personnages', 'fa-solid fa-users', Character::class),
             MenuItem::linkToCrud('Ajouter', 'fa-solid fa-person-circle-plus', Character::class)->setAction(Crud::PAGE_NEW),
         ]);
     }

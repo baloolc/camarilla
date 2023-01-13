@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Model\TimestampedInterface;
 use App\Repository\EventRepository;
-use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
@@ -27,7 +26,7 @@ class Event implements TimestampedInterface
         max: 100,
     )]
     #[ORM\Column(length: 100)]
-    private ?string $title;
+    private ?string $title = null;
 
     #[Assert\NotBlank()]
     #[ORM\Column(type: Types::TEXT)]
@@ -80,6 +79,14 @@ class Event implements TimestampedInterface
     )]
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $status = null;
+
+    #[Assert\PositiveOrZero]
+    #[ORM\Column(nullable: true)]
+    private ?int $nbMaybe = null;
+
+    #[Assert\PositiveOrZero]
+    #[ORM\Column(nullable: true)]
+    private ?int $nbNoParticipant = null;
 
     public function __construct()
     {
@@ -170,6 +177,9 @@ class Event implements TimestampedInterface
 
     public function setFilename(?string $filename): ?self
     {
+        if (empty($filename)){
+            $filename ='';
+        }
             $this->filename = $filename;
 
         return $this;
@@ -188,18 +198,6 @@ class Event implements TimestampedInterface
     public function setNbParticipant(?int $nbParticipant): self
     {
         $this->nbParticipant = $nbParticipant;
-
-        return $this;
-    }
-
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(?string $status): self
-    {
-        $this->status = $status;
 
         return $this;
     }
@@ -227,6 +225,42 @@ class Event implements TimestampedInterface
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getNbMaybe(): ?int
+    {
+        return $this->nbMaybe;
+    }
+
+    public function setNbMaybe(?int $nbMaybe): self
+    {
+        $this->nbMaybe = $nbMaybe;
+
+        return $this;
+    }
+
+    public function getNbNoParticipant(): ?int
+    {
+        return $this->nbNoParticipant;
+    }
+
+    public function setNbNoParticipant(?int $nbNoParticipant): self
+    {
+        $this->nbNoParticipant = $nbNoParticipant;
 
         return $this;
     }

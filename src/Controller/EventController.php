@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Entity\User;
+use App\Form\EventType;
 use App\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -16,20 +18,48 @@ class EventController extends AbstractController
     {
         $events = $eventRepo->findAll();
         return $this->render('event/home.html.twig', [
-            'event' => $events,
+            'events' => $events,
         ]);
     }
 
     #[Route('/event/{slug}', name: 'event_show')]
-    public function show(): Response
+    public function show(?Event $event, Request $request, EventRepository $eventRepo): Response
     {
-        return $this->render('event/show.html.twig', [
-            'controller_name' => 'EventController',
-        ]);
-    }
+        $nbParticipant = $event->getNbParticipant();
+        $nbMaybe = $event->getNbMaybe();
+        $nbNoParticipant = $event->getNbNoParticipant();
 
-    public function deleteImage(Event $event)
-    {
-        
+        if (!$event) {
+            return $this->redirectToRoute('forum_home');
+        }
+
+        $form = $this->createForm(EventType::class, $event);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($event->getStatus() === 'Je participe') {
+                $this->addFlash('success', 'Vous êtes inscrit sur l\'évènement');
+                $nombreParticipant = $nbParticipant + 1;
+                $event->setNbParticipant($nombreParticipant);
+                $eventRepo->save($event, $flush = true);
+            }
+            if ($event->getStatus() === 'Peut être') {
+                $nombreMaybe = $nbMaybe + 1;
+                $event->setNbMaybe($nombreMaybe);
+                $eventRepo->save($event, $flush = true);
+            }
+            if ($event->getStatus() === 'Je ne participe pas') {
+                $nombreNoParticipant = $nbNoParticipant + 1;
+                $event->setNbNoParticipant($nombreNoParticipant);
+                $eventRepo->save($event, $flush = true);
+            } 
+            return $this->redirectToRoute('forum_home', [], Response::HTTP_SEE_OTHER);
+        }
+
+
+        return $this->render('event/show.html.twig', [
+            'event' => $event,
+            'form' => $form->createView(),
+        ]);
     }
 }
