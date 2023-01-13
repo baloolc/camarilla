@@ -38,6 +38,8 @@ Encore
     .addStyleEntry('contact', './assets/styles/contact.scss')
     .addStyleEntry('sidebar', './assets/styles/sidebar.scss')
     .addStyleEntry('homeForum', './assets/styles/homeForum.scss')
+    .addStyleEntry('showEvent', './assets/styles/showEvent.scss')
+    .addStyleEntry('showAdvertisement', './assets/styles/showAdvertisement.scss')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

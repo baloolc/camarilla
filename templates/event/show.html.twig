@@ -8,7 +8,7 @@
 
 {% block stylesheets %}
 	{{ encore_entry_link_tags("sidebar") }}
-	{{ encore_entry_link_tags("homeForum") }}
+	{{ encore_entry_link_tags("showEvent") }}
 {% endblock %}
 
 {% block body %}
@@ -16,105 +16,108 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-2 sidebar"></div>
-				<data-bs-spy="scroll" data-bs-target="#sidebar" data-bs-offset="0" data-bs-smooth-scroll="true" class="col-xl-10 p-0" tabindex="0">
+				<div data-bs-spy="scroll" data-bs-target="#sidebar" data-bs-offset="0" data-bs-smooth-scroll="true" class="col-xl-10 p-0" tabindex="0">
 					<div class="bg-dark div-light d-none d-xl-block position-relative row"></div>
-					<div class="d-flex justify-content-center my-4">
-						<div class="bg-primary border border-dark border-2 text-light p-3 rounded d-flex flex-column align-items-center flex-md-row">
-							<div class="me-md-2">
-								<h1 class="">Evènement
-									{{ event.slug }}</h1>
-							</div>
-							<div class="me-md-2">
-								<h1 class="">du</h1>
-							</div>
-							<div class="">
-								<h1 class="">{{ event.eventDate|date("d/m/Y") }}</h1>
+					<div class="backEvent">
+						<div class="d-flex justify-content-center">
+							<div class="bg-primary border border-dark border-2 text-light p-3 rounded d-flex flex-column align-items-center flex-md-row my-4">
+								<div class="me-md-2">
+									<h1 class="">Evènement
+										{{ event.slug }}</h1>
+								</div>
+								<div class="me-md-2">
+									<h1 class="">du</h1>
+								</div>
+								<div class="">
+									<h1 class="">{{ event.eventDate|date("d/m/Y") }}</h1>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="d-flex justify-content-center">
-						{% if event.filename is empty %}
-							<div>
-								<img src="{{ asset('build/images/events/event.d5f2a147.jpg') }}" class="eventImg" alt="Image d'évènement">
-							</div>
-						{% else %}
-							<div>
-								<img src="/uploads/eventMedia/{{ event.filename }}" class="eventImg" alt="{{ event.altText }}">
-							</div>
-						{% endif %}
-					</div>
-					<div class="d-flex flex-column align-items-center">
-						<div class="w-75">
-							<div class="my-4">
-								<h2 class="">Description de l'évènement</h2>
-							</div>
-							<div class="mb-4">
-								<p class="">{{ event.description|striptags }}</p>
-							</div>
-							<hr>
+						<div class="d-flex justify-content-center">
+							{% if event.filename is empty %}
+								<div>
+									<img src="{{ asset('build/images/events/event.d5f2a147.jpg') }}" class="eventImg" alt="Image d'évènement">
+								</div>
+							{% else %}
+								<div>
+									<img src="/uploads/eventMedia/{{ event.filename }}" class="eventImg" alt="{{ event.altText }}">
+								</div>
+							{% endif %}
 						</div>
-					</div>
-					<div class="d-flex flex-column align-items-center">
-						<div class="my-4 w-75">
-							<div class="my-4">
-								<h2 class="">Inscription à l'évènement</h2>
-							</div>
-							<div class="w-75 mb-4">
-								{{ form_start(form) }}
-								{{ form_row (form.status, {'attr':{'class':'form-control formStyle mt-1 mb-4'}}) }}
-								<div class="">
-									<button class="btn btn-primary text-light border border-dark">
-										<i class="bi bi-check-circle me-1"></i>
-										{{ button_label|default('Valider') }}
-									</button>
+
+						<div class="d-flex flex-column align-items-center">
+							<div class="w-75">
+								<div class="my-4">
+									<h2 class="fw-bold text-black">Description de l'évènement</h2>
 								</div>
-								{{ form_end(form) }}
+								<div class="mb-4">
+									<p class="fs-4 fw-bold text-black">{{ event.description|striptags }}</p>
+								</div>
+								<hr>
 							</div>
-							<hr>
 						</div>
-					</div>
-					<div class="d-flex flex-column align-items-center">
-						<div class="w-75">
-							<div class="my-4">
-								<h2 class="">Participants</h2>
+						<div class="d-flex flex-column align-items-center">
+							<div class="my-4 w-75">
+								<div class="my-4">
+									<h2 class="fw-bold text-black">Inscription à l'évènement</h2>
+								</div>
+								<div class="w-75 mb-4">
+									{{ form_start(form) }}
+									{{ form_row (form.status, {'attr':{'class':'form-control formStyle mt-1 mb-4 fw-bold'}}) }}
+									<div class="">
+										<button class="btn btn-primary text-light border border-dark">
+											<i class="bi bi-check-circle me-1"></i>
+											{{ button_label|default('Valider') }}
+										</button>
+									</div>
+									{{ form_end(form) }}
+								</div>
+								<hr>
 							</div>
-							{% if event.nbParticipant is empty %}
-								<div class="">
-									<p class="fs-5">Il y a 0 participant.</p>
+						</div>
+						<div class="d-flex flex-column align-items-center">
+							<div class="w-75">
+								<div class="my-4">
+									<h2 class="fw-bold text-black">Participants</h2>
 								</div>
-							{% else %}
-								<div class="">
-									<p class="fs-5 m-0">Il y a
-										{{ event.nbParticipant }}
-										participant(s).</p>
+								{% if event.nbParticipant is empty %}
+									<div class="">
+										<p class="fs-5 fw-bold text-black">Il y a 0 participant.</p>
+									</div>
+								{% else %}
+									<div class="">
+										<p class="fs-5 fw-bold text-black">Il y a
+											{{ event.nbParticipant }}
+											participant(s).</p>
+									</div>
+								{% endif %}
+								{% if event.nbMaybe is empty %}
+									<div class="my-2">
+										<p class="fs-5 fw-bold text-black">Il y a 0 peut être.</p>
+									</div>
+								{% else %}
+									<div class="my-2">
+										<p class="fs-5 my-2 fw-bold text-black">Il y a
+											{{ event.nbMaybe }}
+											de peut être.</p>
+									</div>
+								{% endif %}
+								{% if event.nbNoParticipant is empty %}
+									<div class="">
+										<p class="fs-5 fw-bold text-black">Il y a 0 de non participant.</p>
+									</div>
+								{% else %}
+									<div class="">
+										<p class="fs-5 fw-bold text-black">Il y a
+											{{ event.nbNoParticipant }}
+											de non participant(s).</p>
+									</div>
+								{% endif %}
+								<div class="mb-4 d-flex justify-content-end">
+									<a class="btn btn-dark" href="{{ path('forum_home') }}">
+										<i class="bi bi-box-arrow-in-left"></i>
+										Retour</a>
 								</div>
-							{% endif %}
-							{% if event.nbMaybe is empty %}
-								<div class="my-2">
-									<p class="fs-5">Il y a 0 peut être.</p>
-								</div>
-							{% else %}
-								<div class="my-2">
-									<p class="fs-5 my-2">Il y a
-										{{ event.nbMaybe }}
-										de peut être.</p>
-								</div>
-							{% endif %}
-							{% if event.nbNoParticipant is empty %}
-								<div class="">
-									<p class="fs-5">Il y a 0 de non participant.</p>
-								</div>
-							{% else %}
-								<div class="">
-									<p class="fs-5">Il y a
-										{{ event.nbNoParticipant }}
-										de non participant(s).</p>
-								</div>
-							{% endif %}
-							<div class="mb-4 d-flex justify-content-end">
-								<a class="btn btn-dark" href="{{ path('forum_home') }}">
-									<i class="bi bi-box-arrow-in-left"></i>
-									Retour</a>
 							</div>
 						</div>
 					</div>

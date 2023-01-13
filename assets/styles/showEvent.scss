@@ -1,0 +1,28 @@
+@import "variable.scss";
+
+.formStyle {
+    border-color: $primary;
+    border-radius: $border;
+    outline-color: $primary;
+    background-color: $dark;
+    color: $light;
+    appearance: listbox;
+}
+
+.formStyle:focus{
+    background-color: $primary;
+    color: $light;
+}
+
+.eventImg {
+    height: 67vh;
+    width: clamp(21.5rem, 75vw, 74.5rem );
+}
+
+.backEvent {
+
+    background-image: url("../images/events/backEvent.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
