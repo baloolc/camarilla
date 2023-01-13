@@ -9,11 +9,6 @@
     appearance: listbox;
 }
 
-.formStyle:focus{
-    background-color: $primary;
-    color: $light;
-}
-
 .eventImg {
     height: 67vh;
     width: clamp(21.5rem, 75vw, 74.5rem );

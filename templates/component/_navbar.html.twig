@@ -1,11 +1,9 @@
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-	<div class="container-fluid">
-		<div class="d-flex align-items-center">
-			<div>
-				<a href="/"><img src="{{ asset('build/images/logo.png') }}" class="w-75" alt="Logo"/></a>
-			</div>
+
+		<div class="d-flex align-items-center space justify-content-center">
+			<a href="/" class="d-flex align-items-center justify-content-center"><img src="{{ asset('build/images/logo.png') }}" class="logoSize" alt="Logo"/></a>
 		</div>
-		<div class="">
+		<div class="ms-3 my-2 m-md-0">
 			<div class="dropdown">
 				<a class="btn btn-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 					Profil
@@ -24,14 +22,14 @@
 				</ul>
 			</div>
 		</div>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+		<button class="navbar-toggler me-3 my-2 m-md-0 text-primary border border-primary" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse justify-content-lg-end align-items-center" id="navbar">
 			<div class="navbar-nav">
 				<div class="d-flex flex-column flex-lg-row align-items-center">
 					<a class="nav-item link-light p-2 m-2" href="/">Accueil</a>
-					<a class="nav-item link-light p-2 m-2" href="#">Camarilla-fr.com</a>
+					<a class="nav-item link-light p-2 m-2" href="https://camarilla.fr/forum/" target="_blank">Camarilla-fr.com</a>
 					<a class="nav-item link-light p-2 m-2" href="/contact">Contact</a>
 					<a class="nav-item link-light p-2 m-2" href="#">Ressources</a>
 					<a class="nav-item link-light p-2 m-2" href="/event">Forum</a>
@@ -39,6 +37,7 @@
 					<a class="nav-item link-light p-2 m-2" href="#">Connexion</a>
 				</div>
 			</div>
+
 		</div>
-	</div>
+
 </nav>

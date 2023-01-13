@@ -28,10 +28,16 @@
     }
 }
 
-.tobby{
-    color: $light;
+.logoSize{
+    width: 85%;
 }
 
-.tobby:hover{
-    color: $primary;
+.space {
+    width: 15%;
+    }
+    
+ @media screen and (max-width: 720px) {
+    .space {
+    width: 100%;
+    }
 }
