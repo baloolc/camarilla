@@ -14,6 +14,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class AdvertisementCrudController extends AbstractCrudController
 {
+    private const MAXLENGHT = 50;
+
     public static function getEntityFqcn(): string
     {
         return Advertisement::class;
@@ -52,7 +54,7 @@ class AdvertisementCrudController extends AbstractCrudController
             $sulgField->setLabel('Si édition copier/coller le titre');
         }
 
-        yield TextField::new('title')->setLabel('Titre');
+        yield TextField::new('title')->setLabel('Titre')->setCustomOption(self::MAXLENGHT, null);
         yield $sulgField;
         yield DateField::new('advertisementDate')->renderAsNativeWidget(false)->setLabel('Date de l\'annonce');
         yield TextEditorField::new('content')->setLabel('Contenu')->hideOnIndex();

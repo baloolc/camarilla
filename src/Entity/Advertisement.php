@@ -18,7 +18,7 @@ class Advertisement implements TimestampedInterface
 
     #[Assert\NotBlank()]
     #[Assert\Length(
-        max: 100,
+        max: 50,
     )]
     #[ORM\Column(length: 50)]
     private ?string $title = null;

@@ -10,22 +10,24 @@
 		{{ encore_entry_link_tags('app') }}
 		{% block stylesheets %}{% endblock %}
 	</head>
-	<body>
-		<header>
-			{% block navbar %}{% endblock %}
-			{% block flashes %}
-				{% include 'component/_flashes.html.twig'%}
-			{% endblock %}
-		</header>
-		<main>
-			{% block body %}{% endblock %}
-		</main>
-		<footer>
-			{% block footer %}
-				{% include "component/_footer.html.twig" %}
-			{% endblock %}
-		</footer>
-		{{ encore_entry_script_tags('app') }}
-		{% block javascripts %}{% endblock %}
+	<body class="">
+		<div class="d-flex flex-column justify-content-between">
+			<header>
+				{% block navbar %}{% endblock %}
+				{% block flashes %}
+					{% include 'component/_flashes.html.twig'%}
+				{% endblock %}
+			</header>
+			<main>
+				{% block body %}{% endblock %}
+			</main>
+			<footer>
+				{% block footer %}
+					{% include "component/_footer.html.twig" %}
+				{% endblock %}
+			</footer>
+			{{ encore_entry_script_tags('app') }}
+			{% block javascripts %}{% endblock %}
+		</div>
 	</body>
 </html>

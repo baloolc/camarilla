@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class CharacterCrudController extends AbstractCrudController
 {
+    private const MAXLENGHT = 200;
+
     public static function getEntityFqcn(): string
     {
         return Character::class;
@@ -42,7 +44,7 @@ class CharacterCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield TextField::new('name')->setLabel('Nom du personnage');
+        yield TextField::new('name')->setLabel('Nom du personnage')->setCustomOption(self::MAXLENGHT, null);
         yield UrlField::new('linkCharacter')->setLabel('Lien de la fiche personnage');
         yield ChoiceField::new('ageStatus')->setLabel('Status d\'âge')->autocomplete()->setChoices([
             'Infant sous tutelle' => 'Infant sous tutelle',

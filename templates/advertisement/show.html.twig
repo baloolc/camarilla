@@ -3,7 +3,7 @@
 {% block title %}
 	{{ parent() }}
 	||
-	{{ advertisement.slug }}
+	{{ advertisement.title }}
 {% endblock %}
 
 {% block stylesheets %}
@@ -12,17 +12,20 @@
 {% endblock %}
 
 {% block body %}
-	<main>
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-md-2 sidebar"></div>
-				<div data-bs-spy="scroll" data-bs-target="#sidebar" data-bs-offset="0" data-bs-smooth-scroll="true" class="col-xl-10 p-0" tabindex="0">
-					<div class="bg-dark div-light d-none d-xl-block position-relative row"></div>
+	<div class="container-fluid ">
+		<div class="row h-100">
+			<div class="col-md-2 sidebar"></div>
+			<div data-bs-spy="scroll" data-bs-target="#sidebar" data-bs-offset="0" data-bs-smooth-scroll="true" class="col-md-10 p-0" tabindex="0">
+				<div class="bg-dark div-light d-none d-xl-block position-relative row"></div>
+				<div class="backAdvertisement">
 					<div class="d-flex justify-content-center my-4">
 						<div class="bg-primary border border-dark border-2 text-light p-3 rounded d-flex flex-column align-items-center flex-md-row">
 							<div class="me-md-2">
-								<h1 class="">Annonce
-									{{ advertisement.slug }}</h1>
+								<h1 class="">Annonce</h1>
+							</div>
+							<div class="me-md-2">
+								<h1 class="">
+									{{ advertisement.title|u.truncate(20, '...') }}</h1>
 							</div>
 							<div class="me-md-2">
 								<h1 class="">pour le
@@ -33,27 +36,25 @@
 							</div>
 						</div>
 					</div>
-					<div class="backAdvertisement d-flex align-items-center">
-						<div class="">
-							<div class="d-flex flex-column align-items-center">
-								<div class="w-75">
-									<div class="my-4">
-										<h2 class="fw-bold">Description de l'annonce</h2>
-									</div>
-									<div class="mb-4">
-										<p class="text-primary fw-bold fs-4">{{ advertisement.content|striptags }}</p>
-									</div>
-								</div>
+
+					<div class="d-flex flex-column align-items-center">
+						<div class="w-75">
+							<div class="my-4">
+								<h2 class="fw-bold">Description de l'annonce</h2>
 							</div>
-							<div class="mb-4 d-flex justify-content-end col-md-10">
-								<a class="btn btn-dark border border-primary border-3" href="{{ path('forum_home') }}">
-									<i class="bi bi-box-arrow-in-left"></i>
-									Retour</a>
+							<div class="mb-4">
+								<p class="text-primary fw-bold fs-4">{{ advertisement.content|striptags }}</p>
 							</div>
 						</div>
+						<div class="mb-4 d-flex justify-content-end col-md-8 me-4 me-md-0">
+							<a class="btn btn-dark border border-primary border-3" href="{{ path('forum_home') }}">
+								<i class="bi bi-box-arrow-in-left"></i>
+								Retour</a>
+						</div>
 					</div>
+
 				</div>
 			</div>
 		</div>
-	</main>
+	</div>
 {% endblock %}

@@ -3,7 +3,7 @@
 {% block title %}
 	{{ parent() }}
 	||
-	{{ event.slug }}
+	{{ event.title }}
 {% endblock %}
 
 {% block stylesheets %}
@@ -22,8 +22,11 @@
 						<div class="d-flex justify-content-center">
 							<div class="bg-primary border border-dark border-2 text-light p-3 rounded d-flex flex-column align-items-center flex-md-row my-4">
 								<div class="me-md-2">
-									<h1 class="">Evènement
-										{{ event.slug }}</h1>
+									<h1 class="">Evènement</h1>
+								</div>
+								<div class="me-md-2">
+									<h1 class="">
+										{{ event.title|u.truncate(20, '...') }}</h1>
 								</div>
 								<div class="me-md-2">
 									<h1 class="">du</h1>

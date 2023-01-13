@@ -16,6 +16,8 @@ use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class EventCrudController extends AbstractCrudController
 {
+    private const MAXLENGHT = 100;
+
     public static function getEntityFqcn(): string
     {
         return Event::class;
@@ -70,12 +72,12 @@ class EventCrudController extends AbstractCrudController
             $vichImagefield->setRequired(false);
         }
 
-        yield TextField::new('title')->setLabel('Titre');
+        yield TextField::new('title')->setLabel('Titre')->setCustomOption(self::MAXLENGHT, null);
         yield $sulgField;
         yield DateField::new('eventDate')->renderAsNativeWidget(false)->setLabel('Date de l\'évènement');
         yield $imagefield;
         yield $vichImagefield;
-        yield TextField::new('altText')->setLabel('Texte alternatif');
+        yield TextField::new('altText')->setLabel('Texte alternatif')->setCustomOption(self::MAXLENGHT, null);
         yield TextEditorField::new('description')->setLabel('Description')->hideOnIndex();
         yield DateTimeField::new('createdAt')->setLabel('Date de création')->hideOnForm();
         yield DateTimeField::new('updatedAt')->setLabel('Date de mise à jour')->hideOnForm();
