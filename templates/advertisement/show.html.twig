@@ -25,7 +25,7 @@
 							</div>
 							<div class="me-md-2">
 								<h1 class="">
-									{{ advertisement.title|u.truncate(20, '...') }}</h1>
+									{{ advertisement.title|capitalize|u.truncate(20, '...') }}</h1>
 							</div>
 							<div class="me-md-2">
 								<h1 class="">pour le
@@ -43,7 +43,7 @@
 								<h2 class="fw-bold">Description de l'annonce</h2>
 							</div>
 							<div class="mb-4">
-								<p class="text-primary fw-bold fs-4">{{ advertisement.content|striptags }}</p>
+								<p class="text-primary fw-bold fs-4">{{ advertisement.content|striptags|nl2br }}</p>
 							</div>
 						</div>
 						<div class="mb-4 d-flex justify-content-end col-md-8 me-4 me-md-0">

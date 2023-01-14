@@ -26,7 +26,7 @@
 								</div>
 								<div class="me-md-2">
 									<h1 class="">
-										{{ event.title|u.truncate(20, '...') }}</h1>
+										{{ event.title|capitalize|u.truncate(20, '...') }}</h1>
 								</div>
 								<div class="me-md-2">
 									<h1 class="">du</h1>
@@ -54,7 +54,7 @@
 									<h2 class="fw-bold text-black">Description de l'évènement</h2>
 								</div>
 								<div class="mb-4">
-									<p class="fs-4 fw-bold text-black">{{ event.description|striptags }}</p>
+									<p class="fs-4 fw-bold text-black">{{ event.description|striptags|nl2br}}</p>
 								</div>
 								<hr>
 							</div>

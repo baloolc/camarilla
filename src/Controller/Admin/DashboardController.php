@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Advertisement;
 use App\Entity\Character;
 use App\Entity\Event;
+use App\Entity\Presentation;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -55,6 +56,11 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToRoute('Retourner sur le site', 'fa fa-undo', 'home');
+
+        yield MenuItem::subMenu('Association', 'fa-sharp fa-solid fa-house-laptop')->setSubItems([
+            MenuItem::linkToCrud('Toutes les associations', 'fa-solid fa-igloo', Presentation::class),
+            MenuItem::linkToCrud('Ajouter', 'fas fa-plus', Presentation::class)->setAction(Crud::PAGE_NEW),
+        ]);
 
         yield MenuItem::subMenu('Évènnements', 'fa-regular fa-calendar-days')->setSubItems([
             MenuItem::linkToCrud('Tous les évènnements', 'fa-solid fa-users-rectangle', Event::class),
