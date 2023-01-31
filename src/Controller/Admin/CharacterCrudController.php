@@ -68,6 +68,7 @@ class CharacterCrudController extends AbstractCrudController
             'Settite' => 'Settite',
             'Lasombra' => 'Lasombra',
             'Caïtif' => 'Caïtif',
+            'Tzimisce' => 'Tzimisce',
         ]);
         yield DateTimeField::new('createdAt')->hideOnForm();
     }

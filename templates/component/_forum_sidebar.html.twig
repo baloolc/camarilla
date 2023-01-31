@@ -1,33 +1,32 @@
-<nav id="sidebar" class="sidenav d-flex flex-column sticky-xl-top p-3 bg-dark">
-		<img src="{{ character.avatar }}" alt="{{ character.label }}">
-        <h2>{{ character.name}}</h2>
-        <h3>{{ character.ageStatus}}</h3>
-	<div>
-		<button class="dropdown-btn">Hors jeu
-			<i class="fa fa-caret-down"></i>
-		</button>
-		<div class="dropdown-container">
-			{% for offsideCategory in offsideCategories %}
-				<a href="#">{{ offsideCategory.name }}</a>
-			{% endfor %}
-		</div>
-		<button class="dropdown-btn">EJ Evry
-			<i class="fa fa-caret-down"></i>
-		</button>
-		<div class="dropdown-container">
-			{% for inGameCategory in inGameCategories %}
-				<a href="#">{{ inGameCategory.name }}</a>
-			{% endfor %}
-		</div>
-		<button class="dropdown-btn">Clan
-			<i class="fa fa-caret-down"></i>
-		</button>
-		<div class="dropdown-container">
-				<a href="#">{{ character.clan }}</a>
-		</div>
-		<a href="#" class="">
-			<i class="bi bi-envelope"></i>Messagerie</a>
-		<a href="#" class="">
-			<i class="bi bi-house-fill"></i>Accueil forum</a>
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+	<div class="offcanvas-header">
+		<h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Backdrop with scrolling</h5>
+		<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 	</div>
-</nav>
+	<div class="offcanvas-body">
+		<div class="d-flex flex-column align-items-center">
+			<button class="dropdown-btn">Hors jeu
+				<i class="fa fa-caret-down"></i>
+			</button>
+			<div class="dropdown-container">
+				<a href="#">vide</a>
+			</div>
+			<button class="dropdown-btn">EJ Evry
+				<i class="fa fa-caret-down"></i>
+			</button>
+			<div class="dropdown-container">
+				<a href="#">vide</a>
+			</div>
+			<button class="dropdown-btn">Clan
+				<i class="fa fa-caret-down"></i>
+			</button>
+			<div class="dropdown-container">
+				<a href="#">vide</a>
+			</div>
+			<a href="#" class="">
+				<i class="bi bi-envelope"></i>Messagerie</a>
+			<a href="/event" class="">
+				<i class="bi bi-house-fill"></i>Accueil forum</a>
+		</div>
+	</div>
+</div>
