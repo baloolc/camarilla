@@ -13,13 +13,19 @@
 {% block body %}
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-1 bg-dark p-0">
-				<a class="btn btn-dark h-100 w-100" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
-				
+		<div class="zindex position-relative p-0 d-flex">
+			<div class="d-md-none d-block offButon p-0 position-fixed m-2">
+				<a class="btn btn-primary d-flex justify-content-center align-items-center border border-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+				<i class="bi bi-arrow-right-square"></i>
 				</a>
 			</div>
-			{% include "component/_forum_sidebar.html.twig" %}
-			<div class="col-11 p-0">
+			<div class="d-none d-md-flex col-md-2 bg-dark sidebar">
+				{% include 'component/_forum_sidebar.html.twig' %}
+			</div>
+			<div class="d-md-none d-flex col-md-2 bg-dark sidebar">
+				{% include "component/_forum_offcanvas.html.twig" %}
+			</div>
+			<div data-bs-spy="scroll" data-bs-target="#sidebar" data-bs-offset="0" data-bs-smooth-scroll="true" class="col-md-10 p-0" tabindex="0">
 				<div class="imgHomeForum d-flex justify-content-center align-items-center shadow">
 					<div class="d-flex flex-column align-items-center justify-content-center shadow">
 						<h1 class="welcome text-light m-0">
@@ -119,6 +125,7 @@
 						</div>
 					</div>
 				</div>
+			</div>
 			</div>
 		</div>
 	</div>
