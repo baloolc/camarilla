@@ -15,10 +15,19 @@
 	<main>
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-md-2 sidebar">{% include 'component/_forum_sidebar.html.twig' %}</div>
-				<div data-bs-spy="scroll" data-bs-target="#sidebar" data-bs-offset="0" data-bs-smooth-scroll="true" class="col-xl-10 p-0" tabindex="0">
-					<div class="bg-dark div-light d-none d-xl-block position-relative row"></div>
-					<div class="backEvent">
+				<div class="position-relative p-0 d-flex">
+					<div class="d-md-none d-block offButon p-0 position-fixed m-2">
+						<a class="btn btn-primary d-flex justify-content-center align-items-center border border-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+							<i class="bi bi-arrow-right-square"></i>
+						</a>
+					</div>
+					<div class="d-none d-md-flex col-md-2 bg-dark sidebar">
+						{% include 'component/_forum_sidebar.html.twig' %}
+					</div>
+					<div class="d-md-none d-flex col-md-2 bg-dark sidebar">
+						{% include "component/_forum_offcanvas.html.twig" %}
+					</div>
+					<div data-bs-spy="scroll" data-bs-target="#sidebar" data-bs-offset="0" data-bs-smooth-scroll="true" class="col-12 col-md-10 p-0" tabindex="0">
 						<div class="d-flex justify-content-center">
 							<div class="bg-primary border border-dark border-2 text-light p-3 rounded d-flex flex-column align-items-center flex-md-row my-4">
 								<div class="me-md-2">
@@ -38,7 +47,7 @@
 						</div>
 						<div class="d-flex justify-content-center">
 							{% if event.filename is empty %}
-								<div>
+								<div class="">
 									<img src="{{ asset('build/images/events/event.d5f2a147.jpg') }}" class="eventImg" alt="Image d'évènement">
 								</div>
 							{% else %}
@@ -47,7 +56,6 @@
 								</div>
 							{% endif %}
 						</div>
-
 						<div class="d-flex flex-column align-items-center">
 							<div class="w-75">
 								<div class="my-4">
@@ -117,7 +125,7 @@
 									</div>
 								{% endif %}
 								<div class="mb-4 d-flex justify-content-end">
-									<a class="btn btn-dark border border-light border-1" href="{{ path('forum_home') }}">
+									<a class="btn btn-dark border border-primary border-2" href="{{ path('forum_home') }}">
 										<i class="bi bi-box-arrow-in-left"></i>
 										Retour</a>
 								</div>
@@ -126,6 +134,5 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</main>
-{% endblock %}
+		</main>
+	{% endblock %}
