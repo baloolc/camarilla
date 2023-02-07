@@ -44,16 +44,8 @@ class PraxisCategoryCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $sulgField = SlugField::new('slug')
-            ->setTargetFieldName('name')
-            ->setLabel('Barre de recherche: Automatique');
-
-        if (Crud::PAGE_EDIT === $pageName) {
-            $sulgField->setLabel('Si édition copier/coller le titre et remplacer les espaces par -');              
-        }
-
         yield TextField::new('name')->setLabel('Nom de la catégorie')->setCustomOption(self::MAXLENGHT, null);
-        yield $sulgField;
+        yield $sulgField = SlugField::new('slug')->hideOnForm()->setTargetFieldName('name');
         yield TextEditorField::new('description')->setLabel('Description du lieu');
     }
 }

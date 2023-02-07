@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Model\SlugInterface;
 use App\Repository\OffsideCategoryRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -9,7 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: OffsideCategoryRepository::class)]
 #[UniqueEntity(fields: ['name'])]
-class OffsideCategory 
+class OffsideCategory implements SlugInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -23,10 +24,6 @@ class OffsideCategory
     #[ORM\Column(length: 50)]
     private ?string $name = null;
 
-    #[Assert\Length(
-        max: 60
-    )]
-    #[Assert\NotBlank()]
     #[ORM\Column(length: 60)]
     private ?string $slug = null;
 

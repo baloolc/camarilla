@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Model\SlugInterface;
 use App\Repository\PraxisCategoryRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: PraxisCategoryRepository::class)]
 #[UniqueEntity(fields: ['name'])]
-class PraxisCategory
+class PraxisCategory implements SlugInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -24,12 +25,8 @@ class PraxisCategory
     #[ORM\Column(length: 50)]
     private ?string $name = null;
 
-    #[Assert\Length(
-        max: 60
-    )]
-    #[Assert\NotBlank()]
     #[ORM\Column(length: 60)]
-    private ?string $slug = null;
+    private ?string $slug;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;

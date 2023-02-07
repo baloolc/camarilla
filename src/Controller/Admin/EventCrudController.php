@@ -50,9 +50,6 @@ class EventCrudController extends AbstractCrudController
         $mediaEvent = $this->getParameter('medias_event');
         $mediaUpload = 'uploads/eventMedia/';
 
-        $sulgField = SlugField::new('slug')
-            ->setTargetFieldName('title')
-            ->setLabel('Barre de recherche: Automatique');
 
         $imagefield = ImageField::new('filename', 'Image')
             ->setBasePath($mediaUpload)
@@ -66,14 +63,12 @@ class EventCrudController extends AbstractCrudController
             ->onlyWhenCreating();
 
         if (Crud::PAGE_EDIT === $pageName) {
-
-            $sulgField->setLabel('Si édition copier/coller le titre et remplacer les espaces par -');
             $imagefield->setRequired(false)->setLabel('Editer l\'image, mais ne peut pas être vide');
             $vichImagefield->setRequired(false);
         }
 
-        yield TextField::new('title')->setLabel('Titre')->setCustomOption(self::MAXLENGHT, null);
-        yield $sulgField;
+        yield TextField::new('name')->setLabel('Titre')->setCustomOption(self::MAXLENGHT, null);
+        yield $sulgField = SlugField::new('slug')->hideOnForm()->setTargetFieldName('name');
         yield DateField::new('eventDate')->renderAsNativeWidget(false)->setLabel('Date de l\'évènement');
         yield $imagefield;
         yield $vichImagefield;

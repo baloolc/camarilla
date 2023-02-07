@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Model\SlugInterface;
 use App\Model\TimestampedInterface;
 use App\Repository\EventRepository;
 use DateTimeImmutable;
@@ -14,7 +15,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 #[Vich\Uploadable]
-class Event implements TimestampedInterface
+class Event implements TimestampedInterface, SlugInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -26,7 +27,7 @@ class Event implements TimestampedInterface
         max: 100,
     )]
     #[ORM\Column(length: 100)]
-    private ?string $title = null;
+    private ?string $name = null;
 
     #[Assert\NotBlank()]
     #[ORM\Column(type: Types::TEXT)]
@@ -98,14 +99,14 @@ class Event implements TimestampedInterface
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getName(): ?string
     {
-        return $this->title;
+        return $this->name;
     }
 
-    public function setTitle(?string $title): self
+    public function setName(?string $name): self
     {
-        $this->title = $title;
+        $this->name = $name;
 
         return $this;
     }
@@ -183,11 +184,6 @@ class Event implements TimestampedInterface
             $this->filename = $filename;
 
         return $this;
-    }
-
-    public function __toString(): string
-    {
-        return $this->title;
     }
 
     public function getNbParticipant(): ?int

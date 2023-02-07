@@ -5,8 +5,10 @@ namespace App\Controller\Admin;
 use App\Entity\Character;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -45,7 +47,7 @@ class CharacterCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('name')->setLabel('Nom du personnage')->setCustomOption(self::MAXLENGHT, null);
-        yield UrlField::new('linkCharacter')->setLabel('Lien de la fiche personnage');
+        yield UrlField::new('linkCharacter')->setLabel('Lien de la fiche personnage')->hideOnIndex();
         yield ChoiceField::new('ageStatus')->setLabel('Status d\'âge')->autocomplete()->setChoices([
             'Infant sous tutelle' => 'Infant sous tutelle',
             'Nouveau née' => 'Nouveau née',
@@ -70,6 +72,10 @@ class CharacterCrudController extends AbstractCrudController
             'Caïtif' => 'Caïtif',
             'Tzimisce' => 'Tzimisce',
         ]);
+        yield $sulgField = SlugField::new('slug')->hideOnForm()->setTargetFieldName('name');
+        yield AssociationField::new('jobs')->setLabel('Poste(s) du personnage')->hideOnIndex();
         yield DateTimeField::new('createdAt')->hideOnForm();
+        yield DateTimeField::new('updatedAt')->hideOnForm();
+
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Model\SlugInterface;
 use App\Model\TimestampedInterface;
 use App\Repository\AdvertisementRepository;
 use Doctrine\DBAL\Types\Types;
@@ -9,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AdvertisementRepository::class)]
-class Advertisement implements TimestampedInterface
+class Advertisement implements TimestampedInterface, SlugInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -21,7 +22,7 @@ class Advertisement implements TimestampedInterface
         max: 50,
     )]
     #[ORM\Column(length: 50)]
-    private ?string $title = null;
+    private ?string $name = null;
 
     #[Assert\NotBlank()]
     #[ORM\Column(type: Types::TEXT)]
@@ -44,14 +45,14 @@ class Advertisement implements TimestampedInterface
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getName(): ?string
     {
-        return $this->title;
+        return $this->name;
     }
 
-    public function setTitle(string $title): self
+    public function setName(string $name): self
     {
-        $this->title = $title;
+        $this->name = $name;
 
         return $this;
     }

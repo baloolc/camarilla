@@ -5,15 +5,19 @@ namespace App\Entity;
 use App\Model\TimestampedInterface;
 use App\Repository\CharacterRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use App\Model\SlugInterface;
+use DateTimeInterface;
 
 #[UniqueEntity(fields: ['name'])]
 #[ORM\Entity(repositoryClass: CharacterRepository::class)]
 #[ORM\Table(name: '`character`')]
-class Character implements TimestampedInterface
+class Character implements TimestampedInterface, SlugInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -37,25 +41,29 @@ class Character implements TimestampedInterface
     )]
     #[ORM\Column(length: 50)]
     private ?string $ageStatus;
-
-    #[ORM\ManyToOne(inversedBy: 'character')]
-    private ?User $user = null;
-
-    #[Assert\Length(
-        max: 50,
-    )]
-    #[ORM\Column(length: 50)]
-    private ?string $clan = null;
-
+    
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt;
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $updatedAt = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?DateTimeInterface $updatedAt = null;
+
+    #[ORM\ManyToMany(targetEntity: JobCategory::class, inversedBy: 'characters')]
+    private Collection $jobs;
+
+    #[ORM\OneToOne(inversedBy: 'liveCharacter', cascade: ['persist', 'remove'])]
+    private ?Signature $signature = null;
+
+    #[ORM\Column(length: 50)]
+    private ?string $clan = null;
+
+    #[ORM\Column(length: 50)]
+    private ?string $slug = null;
 
     public function __construct()
     {
         $this->updatedAt = new DateTimeImmutable();
+        $this->jobs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -99,30 +107,6 @@ class Character implements TimestampedInterface
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    public function getClan(): ?string
-    {
-        return $this->clan;
-    }
-
-    public function setClan(string $clan): self
-    {
-        $this->clan = $clan;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -143,6 +127,66 @@ class Character implements TimestampedInterface
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, JobCategory>
+     */
+    public function getJobs(): Collection
+    {
+        return $this->jobs;
+    }
+
+    public function addJobs(JobCategory $jobs): self
+    {
+        if (!$this->jobs->contains($jobs)) {
+            $this->jobs->add($jobs);
+        }
+
+        return $this;
+    }
+
+    public function removeJobs(JobCategory $jobs): self
+    {
+        $this->jobs->removeElement($jobs);
+
+        return $this;
+    }
+
+    public function getSignature(): ?Signature
+    {
+        return $this->signature;
+    }
+
+    public function setSignature(?Signature $signature): self
+    {
+        $this->signature = $signature;
+
+        return $this;
+    }
+
+    public function getClan(): ?string
+    {
+        return $this->clan;
+    }
+
+    public function setClan(string $clan): self
+    {
+        $this->clan = $clan;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
