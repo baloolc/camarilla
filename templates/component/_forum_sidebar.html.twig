@@ -1,26 +1,75 @@
-<nav id="sidebar" class="d-flex flex-column sticky-xl-top  p-3">
-	<div class="d-flex flex-column align-items-center position-fixed">
-			<button class="dropdown-btn">Hors jeu
-				<i class="fa fa-caret-down"></i>
-			</button>
-			<div class="dropdown-container">
-				<a href="#">vide</a>
+<nav id="sidebar" class="d-flex flex-column sticky-md-top">
+	<div class="d-flex flex-column align-items-start position-fixed">
+		<ul class="list ps-2">
+			<li class="p-1 mb-2 ms-2">
+				<a class="text-decoration-none fs-2 fw-bold text-light fontstyle" data-bs-toggle="collapse" href="#hj" role="button" aria-expanded="false" aria-controls="collapseExample">Hors jeu
+					<i class="bi bi-caret-down-fill text-primary fs-3"></i>
+				</a>
+			</li>
+			<div class="collapse" id="hj">
+				<ul class="list">
+					{% for offside in offsideCategories%}
+						<li class="mb-2">
+							<a class="text-decoration-none fs-6 text-primary" href="{{path('offside_show', { 'slug': offside.slug })}}">
+								<i class="bi bi-arrow-right-short me-2 text-light"></i>
+								{{ offside.name|capitalize|u.truncate(30, '...') }}</a>
+						</li>
+					{% endfor %}
+				</ul>
 			</div>
-			<button class="dropdown-btn">EJ Evry
-				<i class="fa fa-caret-down"></i>
-			</button>
-			<div class="dropdown-container">
-				<a href="#">vide</a>
+			<li class="p-1 mb-2 ms-2">
+				<a class="text-decoration-none fs-2 fw-bold text-light fontstyle" data-bs-toggle="collapse" href="#ej" role="button" aria-expanded="false" aria-controls="collapseExample">EJ Evry
+					<i class="bi bi-caret-down-fill text-primary fs-3"></i>
+				</a>
+			</li>
+			<div class="collapse" id="ej">
+				<ul class="list">
+					{% for praxisCategory in praxisCategories%}
+						<li class="mb-2">
+							<a class="text-decoration-none fs-6 text-primary" href="{{path('praxis_show', { 'slug': praxisCategory.slug })}}">
+								<i class="bi bi-arrow-right-short me-2 text-light"></i>
+								{{ praxisCategory.name|capitalize|u.truncate(30, '...') }}</a>
+						</li>
+					{% endfor %}
+				</ul>
 			</div>
-			<button class="dropdown-btn">Clan
-				<i class="fa fa-caret-down"></i>
-			</button>
-			<div class="dropdown-container">
-				<a href="#">vide</a>
+			{% if jobCategories is empty %}
+			<div></div>
+			{% else %}
+			<li class="p-1 mb-2 ms-2">
+				<a class="text-decoration-none fs-2 fw-bold text-light fontstyle" data-bs-toggle="collapse" href="#poste" role="button" aria-expanded="false" aria-controls="collapseExample">Poste
+					<i class="bi bi-caret-down-fill text-primary fs-3"></i>
+				</a>
+			</li>
+			<div class="collapse" id="poste">
+				<ul class="list">
+					{% for jobCategory in jobCategories%}
+						<li class="mb-2">
+							<a class="text-decoration-none fs-6 text-primary" href="{{path('job_show', { 'slug': jobCategory.slug })}}">
+								<i class="bi bi-arrow-right-short me-2 text-light"></i>
+								{{ jobCategory.name|capitalize|u.truncate(30, '...') }}</a>
+						</li>
+					{% endfor %}
+				</ul>
 			</div>
-			<a href="#" class="">
-				<i class="bi bi-envelope"></i>Messagerie</a>
-			<a href="/event" class="">
-				<i class="bi bi-house-fill"></i>Accueil forum</a>
-		</div>
+			{% endif %}
+			<li class="p-1 mb-2 ms-2"><a class="text-decoration-none fs-2 fw-bold text-light fontstyle" data-bs-toggle="collapse" href="#clan" role="button" aria-expanded="false" aria-controls="collapseExample">Clan
+					<i class="bi bi-caret-down-fill text-primary fs-3"></i>
+				</a>
+			</li>
+			<div class="collapse" id="clan">
+			<ul class="list">
+				<li class="mb-2">
+					<a class="text-decoration-none fs-6 text-primary" href="#"><i class="bi bi-arrow-right-short me-2 text-light"></i>vide</a>
+				</li>
+			</ul>
+			</div>
+			<li class="mb-2 ms-2">
+				<a href="#" class="text-decoration-none text-light fs-2 fw-bold fontstyle">Messagerie</a>
+			</li>
+			<li class="ms-2">
+				<a href="/forum/home" class="text-decoration-none text-light fs-2 fw-bold fontstyle">Accueil forum</a>
+			</li>
+		</ul>
+	</div>
 </nav>

@@ -5,9 +5,11 @@ namespace App\Entity;
 use App\Repository\OffsideCategoryRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: OffsideCategoryRepository::class)]
-class OffsideCategory
+#[UniqueEntity(fields: ['name'])]
+class OffsideCategory 
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

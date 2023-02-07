@@ -51,3 +51,16 @@
     height: 2rem;
     z-index: $zindex-sticky;
   }
+
+  .list {
+    list-style: none;
+  }
+
+  .fontstyle{
+    font-family: $font-family-welcome;
+  }
+
+  .mbutton {
+    margin-top: 20rem;
+    margin-left: 1rem;
+}

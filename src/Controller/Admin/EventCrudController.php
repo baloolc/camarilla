@@ -31,8 +31,8 @@ class EventCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         $subMenuIndex = $this->getSubMenuIndex();
-        $entityLabelSingular = 'un évènnement';
-        $entityLabelPlurial = 'Tous les évènnements';
+        $entityLabelSingular = 'un événement';
+        $entityLabelPlurial = 'Tous les événements';
 
         return $crud
         ->setEntityLabelInSingular($entityLabelSingular)
@@ -67,7 +67,7 @@ class EventCrudController extends AbstractCrudController
 
         if (Crud::PAGE_EDIT === $pageName) {
 
-            $sulgField->setLabel('Si édition copier/coller le titre');
+            $sulgField->setLabel('Si édition copier/coller le titre et remplacer les espaces par -');
             $imagefield->setRequired(false)->setLabel('Editer l\'image, mais ne peut pas être vide');
             $vichImagefield->setRequired(false);
         }

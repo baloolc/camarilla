@@ -51,7 +51,7 @@ class AdvertisementCrudController extends AbstractCrudController
 
         if (Crud::PAGE_EDIT === $pageName) {
            
-            $sulgField->setLabel('Si édition copier/coller le titre');
+            $sulgField->setLabel('Si édition copier/coller le titre et remplacer les espaces par -');
         }
 
         yield TextField::new('title')->setLabel('Titre')->setCustomOption(self::MAXLENGHT, null);

@@ -6,8 +6,10 @@ use App\Repository\PraxisCategoryRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: PraxisCategoryRepository::class)]
+#[UniqueEntity(fields: ['name'])]
 class PraxisCategory
 {
     #[ORM\Id]
