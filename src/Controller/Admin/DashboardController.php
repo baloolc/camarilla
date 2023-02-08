@@ -9,6 +9,7 @@ use App\Entity\JobCategory;
 use App\Entity\OffsideCategory;
 use App\Entity\PraxisCategory;
 use App\Entity\Presentation;
+use App\Entity\Signature;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -93,6 +94,11 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::subMenu('Catégories des postes', 'fa-solid fa-broom-ball')->setSubItems([
             MenuItem::linkToCrud('Toutes les catégories des postes', 'fa-brands fa-napster', JobCategory::class),
             MenuItem::linkToCrud('Ajouter', 'fas fa-plus', JobCategory::class)->setAction(Crud::PAGE_NEW),
+        ]);
+
+        yield MenuItem::subMenu('Signatures des personnages', 'fa-solid fa-pencil')->setSubItems([
+            MenuItem::linkToCrud('Toutes les signatures des personnages', 'fa-solid fa-file-pen', Signature::class),
+            MenuItem::linkToCrud('Ajouter', 'fas fa-plus', Signature::class)->setAction(Crud::PAGE_NEW),
         ]);
     }
 }

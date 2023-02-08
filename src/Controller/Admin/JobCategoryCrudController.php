@@ -48,6 +48,5 @@ class JobCategoryCrudController extends AbstractCrudController
         yield TextField::new('name')->setLabel('Nom de la catégorie')->setCustomOption(self::MAXLENGHT, null);
         yield $sulgField = SlugField::new('slug')->hideOnForm()->setTargetFieldName('name');
         yield TextEditorField::new('description')->setLabel('Description du lieu ou du poste');
-        yield ArrayField::new('participant')->setLabel('Membres du poste')->hideOnIndex(); 
     }
 }

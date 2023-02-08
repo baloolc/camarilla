@@ -190,4 +190,9 @@ class Character implements TimestampedInterface, SlugInterface
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

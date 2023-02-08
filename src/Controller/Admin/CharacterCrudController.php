@@ -73,7 +73,7 @@ class CharacterCrudController extends AbstractCrudController
             'Tzimisce' => 'Tzimisce',
         ]);
         yield $sulgField = SlugField::new('slug')->hideOnForm()->setTargetFieldName('name');
-        yield AssociationField::new('jobs')->setLabel('Poste(s) du personnage')->hideOnIndex();
+        yield AssociationField::new('jobs')->setLabel('Dans qu\'elle categorie de poste le personage doit apparaître ')->hideOnIndex();
         yield DateTimeField::new('createdAt')->hideOnForm();
         yield DateTimeField::new('updatedAt')->hideOnForm();
 

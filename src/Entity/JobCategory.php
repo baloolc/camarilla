@@ -33,9 +33,6 @@ class JobCategory implements SlugInterface
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::ARRAY, nullable: true)]
-    private array $participant = [];
-
     #[ORM\ManyToMany(targetEntity: Character::class, mappedBy: 'jobs')]
     private Collection $characters;
 
@@ -81,18 +78,6 @@ class JobCategory implements SlugInterface
     public function setDescription(?string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getParticipant(): array
-    {
-        return $this->participant;
-    }
-
-    public function setParticipant(?array $participant): self
-    {
-        $this->participant = $participant;
 
         return $this;
     }
