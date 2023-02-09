@@ -1,22 +1,31 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}{{ parent() }} || Réinitialisation de mot de passe
+{% block title %}
+	{{ parent() }}
+	|| Réinitialisation de mot de passe
+{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags("logRegister") }}
 {% endblock %}
 
 {% block body %}
-	<div class="container">
-		{% for flash_error in app.flashes('reset_password_error') %}
-			<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-		{% endfor %}
-		<h1 class="d-flex justify-content-center mt-5 mb-3">Réinitialisation de mot de passe</h1>
-		<small class="d-flex justify-content-center my-2">
-			Entrez votre adresse e-mail et nous vous enverrons un
-			lien pour réinitialiser votre mot de passe.
-		</small>
-		{{ form_start(requestForm) }}
-		{{ form_row(requestForm.email, {'attr':{'class':'form-control'}}) }}
-		<div class="d-flex justify-content-center mt-2 mb-5">
-			<button class="btn border bg-black text-light rounded mb-3"><i class="bi bi-send-fill me-2"></i>Envoyer une réinitialisation de mot de passe</button>
+	{% for flash_error in app.flashes('reset_password_error') %}
+		<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+	{% endfor %}
+	{{ form_start(requestForm) }}
+	<div class="container border border-primary border-4 shadow bg-dark rounded d-flex flex-column align-items-center col-md-5 col-10 mb-4 marge">
+		<h1 class="d-flex justify-content-center mt-4 mb-3 text-light">Réinitialisation de mot de passe</h1>
+		<p class="w-75"><small class="d-flex justify-content-center my-2 text-light">
+			Entrez votre adresse e-mail et le bureau d'acionna vous enverra un
+									lien par email pour réinitialiser votre mot de passe.
+		</small></p>
+		<div class="align-items-center col-md-6 col-12  fs-5 w-75 text-primary">
+			{{ form_row(requestForm.email, {'attr':{'class':'form-control'}}) }}
+		</div>
+		<div class="d-flex justify-content-center mt-4 mb-5 w-75">
+			<button class="btn btn-primary text-light rounded p-2 mb-3">
+				<i class="bi bi-send-fill me-2"></i>Réinitialisation du mot de passe</button>
 		</div>
 		{{ form_end(requestForm) }}
 	</div>
