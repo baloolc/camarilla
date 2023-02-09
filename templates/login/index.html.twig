@@ -1,0 +1,38 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+	{{ parent() }}
+	|| Connexion
+{% endblock %}
+
+{% block body %}
+	{% if error %}
+		<div class="d-flex flex-column align-items-center mt-2">
+			<div class="bg-light shadow-sm text-danger fs-5">
+				<i class="bi bi-exclamation-triangle me-2"></i>
+				{{ error.messageKey|trans(error.messageData, 'security') }}
+			</div>
+		</div>
+	{% endif %}
+	<h1 class="d-flex justify-content-center mt-5 mb-4">Se connecter</h1>
+	<form action="" method="post">
+		<div class="container shadow bg-light rounded d-flex flex-column align-items-center col-lg-5 col-10 mb-4">
+			<div class="d-flex flex-column justify-content-center align-items-center col-lg-10 mt-5">
+				<label class="w-100 fs-5 mb-2" for="username">E-mail</label>
+				<input class=" p-2 fs-5 form-control border-dark" type="text" id="username" name="_username" value="{{ last_username }}" required placeholder="votre.email@acionna.com"/>
+			</div>
+			<div class="d-flex flex-column justify-content-center align-items-center col-lg-10 mt-4">
+				<label class="w-100 fs-5 mb-2" for="password">Mot de passe</label>
+				<input class=" p-2 fs-5 form-control border-dark" type="password" id="password" name="_password" required placeholder="Mot de passe"/>
+			</div>
+			<div class="col-lg-10 me-lg-3 my-1">
+				<a class="text-dark mt-1 p-2" href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a>
+			</div>
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+			<div class="d-flex justify-content-center my-5">
+				<button class="btn btn-outline-primary text-dark fs-5 border-2 fw-bold" type="submit">
+					<i class="bi bi-box-arrow-in-right me-2"></i>Se connecter</button>
+			</div>
+		</div>
+	</div>
+</form>{% endblock %}

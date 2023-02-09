@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register
+{% endblock %}
+
+{% block body %}
+	<h1 class="d-flex justify-content-center mt-5 mb-5">Inscription du compte</h1>
+	{% for flash_error in app.flashes('verify_email_error') %}
+		<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+	{% endfor %}
+
+	{{ form_start(registrationForm) }}
+	<div class="container shadow bg-light rounded d-flex flex-column align-items-center col-lg-5 col-10 mb-4">
+		<div class="align-items-center col-lg-6 col-md-12 mt-5 fs-5 w-75">
+			{{ form_row (registrationForm.email, {'attr':{'class':'form-control border-dark'}})}}
+		</div>
+		<div class="align-items-center col-lg-6 col-md-12 mt-4 fs-5 w-75">
+			{{ form_row (registrationForm.firstname, {'attr':{'class':'form-control border-dark'}})}}
+		</div>
+        <div class="align-items-center col-lg-6 col-md-12 mt-4 fs-5 w-75">
+			{{ form_row (registrationForm.lastname, {'attr':{'class':'form-control border-dark'}})}}
+		</div>
+		<div class="align-items-center col-lg-6 col-md-12 mt-4 fs-5 w-75">
+			{{ form_row (registrationForm.plainPassword, {'attr':{'class':'form-control border-dark'}})}}
+		</div>
+		<div class="d-flex justify-content-center my-5">
+			<button type="submit" class="btn btn-outline-primary text-dark mb-3 fs-5 border-2 fw-bold">
+				<i class="bi bi-person-badge-fill me-2"></i>S'enregistrer</button>
+		</div>
+	</div>
+	{{ form_end(registrationForm) }}
+{% endblock %}

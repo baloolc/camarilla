@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ parent() }} || Réinitialisation de mot de passe
+{% endblock %}
+
+{% block body %}
+	<h1 class="d-flex justify-content-center my-4">Réinitialisation de mot de passe</h1>
+    <div class="container">
+    {{ form_start(resetForm) }}
+        {{ form_row(resetForm.plainPassword) }}
+        <button class="btn btn-primary fs-5">Réinitialisation de mot de passe</button>
+    {{ form_end(resetForm) }}
+    </div>
+{% endblock %}
+
