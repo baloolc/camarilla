@@ -6,8 +6,7 @@ use App\Entity\Signature;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class SignatureCrudController extends AbstractCrudController
@@ -41,7 +40,7 @@ class SignatureCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield TextField::new('descriptif')->setLabel('La signature du personnage (nom, status, clan, poste(s), reconnaissance(s) )');
+        yield TextEditorField::new('descriptif')->setLabel('La signature du personnage (nom, status, clan, poste(s), reconnaissance(s) )');
         yield AssociationField::new('liveCharacter')->setLabel('Le personnage au quel la signature va être associer');
     }
 }

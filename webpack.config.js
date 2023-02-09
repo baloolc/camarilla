@@ -40,6 +40,8 @@ Encore
     .addStyleEntry('homeForum', './assets/styles/homeForum.scss')
     .addStyleEntry('showEvent', './assets/styles/showEvent.scss')
     .addStyleEntry('showAdvertisement', './assets/styles/showAdvertisement.scss')
+    .addStyleEntry('logRegister', './assets/styles/logRegister.scss')
+
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

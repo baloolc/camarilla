@@ -1,0 +1,15 @@
+@import "variable.scss";
+
+.marge{
+    margin-top: 10rem;
+}
+
+.color {
+    color: blueviolet;
+}
+
+@media screen and (max-width: 768px) {
+    .marge {
+    margin-top: 5rem;
+    }
+}
