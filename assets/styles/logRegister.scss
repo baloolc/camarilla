@@ -1,16 +1,57 @@
 @import "variable.scss";
 
+.bgLogin {
+    height: 84vh;
+    background-image: url("../images/login/connexion.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.bgReset {
+    height: 84vh;
+    background-image: url("../images/login/connexion.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.bgRegister {
+    height: 84vh;
+    background-image: url("../images/login/connexion.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
 .marge{
-    margin-top: 9rem;
+    margin-top: 7rem;
 }
 
 .color {
     color: blueviolet;
 }
 
-.margeIns {
-    margin-top: 4rem;
-    margin-bottom: 4rem;
+.margeCheck {
+    margin-top: 15rem;
+}
+
+.required {
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.margeReset {
+    margin-top: 7rem;
+}
+
+.box {
+    width: 80%;
+}
+
+.box div input {
+    width: 100%;
 }
 
 @media screen and (max-width: 768px) {
@@ -18,12 +59,27 @@
     margin-top: 5rem;
     }
 
-    .margeIns {
-        margin-top: 3rem ;
+    .bgLogin {
+        height: 73vh;
     }
-}
+    
+    .bgReset {
+        height: 80vh;
+    }
 
-.required {
-    margin-top: 2rem;
-    margin-bottom: 0.5rem;
+    .bgRegister {
+        height: 90vh;
+    }
+
+    .margeCheck {
+        margin-top: 8rem ;
+    }
+
+    .margeReset {
+        margin-top: 3.5rem;
+    }
+
+    .box {
+        width: 100%;
+    }
 }
