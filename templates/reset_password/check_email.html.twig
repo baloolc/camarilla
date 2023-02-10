@@ -1,11 +1,30 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}{{ parent() }} || Email de réinitialisation envoyé{% endblock %}
+{% block title %}
+	{{ parent() }}
+	|| Email de réinitialisation
+{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags("logRegister") }}
+{% endblock %}
 
 {% block body %}
-    <p class="my-3">
-        Si un compte correspondant à votre adresse e-mail existe,
-        un e-mail vient d'être envoyé contenant un lien que vous pouvez utiliser pour réinitialiser votre mot de passe.
-    </p>
-    <p class="my-3">Si vous ne recevez pas d'e-mail, veuillez vérifier votre dossier spam ou <a href="{{ path('app_forgot_password_request') }}"> essayer encore.</a>.</p>
+	<div class="container border border-primary border-4 shadow bg-dark rounded d-flex flex-column align-items-center col-md-5 col-10 mb-4 marge">
+		<div>
+			<p class="my-3 text-light">
+				Si un compte correspond à votre adresse e-mail,
+							        un e-mail vient d'être envoyé contenant un lien pour réinitialiser votre mot de passe.
+			</p>
+			<p class="my-3 text-light">Si vous ne recevez pas d'e-mail, veuillez vérifier votre dossier de spam ou cliquez sur ce lien
+				<a class="color text-decoration-none" href="{{ path('app_forgot_password_request') }}">
+					Nouvelle essai.</a>
+			</p>
+		</div>
+		<div class="mb-3">
+			<a class="btn btn-outline-primary text-light" href="{{ path('login') }}">
+				<i class="bi bi-box-arrow-in-left"></i>
+				Retour</a>
+		</div>
+	</div>
 {% endblock %}

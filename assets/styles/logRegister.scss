@@ -9,7 +9,8 @@
 }
 
 .margeIns {
-    margin-top: 8.7rem;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
 }
 
 @media screen and (max-width: 768px) {
@@ -20,4 +21,9 @@
     .margeIns {
         margin-top: 3rem ;
     }
+}
+
+.required {
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
 }

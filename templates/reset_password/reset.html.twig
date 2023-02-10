@@ -1,15 +1,24 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}{{ parent() }} || Réinitialisation de mot de passe
+{% block title %}
+	{{ parent() }}
+	|| Réinitialisation de mot de passe
+{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags("logRegister") }}
 {% endblock %}
 
 {% block body %}
-	<h1 class="d-flex justify-content-center my-4">Réinitialisation de mot de passe</h1>
-    <div class="container">
-    {{ form_start(resetForm) }}
-        {{ form_row(resetForm.plainPassword) }}
-        <button class="btn btn-primary fs-5">Réinitialisation de mot de passe</button>
-    {{ form_end(resetForm) }}
-    </div>
+	{{ form_start(resetForm) }}
+	<div class="container border border-primary border-4 shadow bg-dark rounded d-flex flex-column align-items-center col-md-4 col-10 mb-4 margeIns">
+		<h1 class="d-flex justify-content-center mt-4 mb-4 text-light">Réinitialisation du mot de passe</h1>
+		<div class=" d-flex flex-column justify-content-center align-items-center col-md-6 col-12 fs-5 text-primary">
+			{{ form_row (resetForm.plainPassword, {'attr':{'class':'form-control border-primary'}})}}
+		</div>
+		<div class="d-flex justify-content-center my-5">
+			<button class="btn btn-primary fs-5"><i class="bi bi-x-diamond me-2"></i>Réinitialisation du mot de passe</button>
+			{{ form_end(resetForm) }}
+		</div>
+	</div>
 {% endblock %}
-
