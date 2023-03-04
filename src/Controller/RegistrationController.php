@@ -87,7 +87,7 @@ class RegistrationController extends AbstractController
                 ->html($this->renderView('email/email_wait_activation.html.twig'));
             $mailer->send($email);
             $this->addFlash('success', 'Votre email à bien été vérifier et votre compte est attente d\'activation');
-            
+
         return $this->redirectToRoute('home');
     }
 }

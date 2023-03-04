@@ -41,6 +41,9 @@ class UserCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        yield TextField::new('firstname')->onlyOnIndex();
+        yield TextField::new('lastname')->onlyOnIndex();
+
         if(Crud::PAGE_EDIT){
             yield BooleanField::new('isActivate')->setLabel('Activation du compte')->onlyOnForms();
         yield ChoiceField::new('roles')
@@ -61,8 +64,8 @@ class UserCrudController extends AbstractCrudController
                 'Utilisateur' => 'ROLE_MEMBER',
             ]);
         }
-        
-        yield TextField::new('firstname')->onlyOnIndex();
-        yield TextField::new('lastname')->onlyOnIndex();
+        if(Crud::PAGE_INDEX){
+            yield BooleanField::new('isActivate')->addJsFiles()->setLabel('Activation du compte')->onlyOnIndex()->renderAsSwitch(false);
+        }
     }
 }
