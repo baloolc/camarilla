@@ -10,7 +10,9 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -63,8 +65,10 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/verify/email', name: 'verify_email')]
-    public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
+    public function verifyUserEmail(Request $request, TranslatorInterface $translator, MailerInterface $mailer): Response
     {
+       
+
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         // validate email confirmation link, sets User::isVerified=true and persists
@@ -76,9 +80,14 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('register');
         }
 
-        // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Votre email à bien été vérifier et votre compte est attente d\'activation');
-
+            $email = (new Email())
+                ->from('Bureauacionna@gmail.com')
+                ->to('Bureauacionna@gmail.com')
+                ->subject('Un compte d\'un utilisateur est en attente d\'activation')
+                ->html($this->renderView('email/email_wait_activation.html.twig'));
+            $mailer->send($email);
+            $this->addFlash('success', 'Votre email à bien été vérifier et votre compte est attente d\'activation');
+            
         return $this->redirectToRoute('home');
     }
 }
