@@ -15,7 +15,7 @@ class Signature
     private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $descriptif = null;
+    private ?string $recognize = null;
 
     #[ORM\OneToOne(mappedBy: 'signature', cascade: ['persist', 'remove'])]
     private ?Character $liveCharacter = null;
@@ -25,14 +25,14 @@ class Signature
         return $this->id;
     }
 
-    public function getDescriptif(): ?string
+    public function getRecognize(): ?string
     {
-        return $this->descriptif;
+        return $this->recognize;
     }
 
-    public function setDescriptif(?string $descriptif): self
+    public function setRecognize(?string $recognize): self
     {
-        $this->descriptif = $descriptif;
+        $this->recognize = $recognize;
 
         return $this;
     }

@@ -18,4 +18,5 @@ return [
     EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle::class => ['all' => true],
     Vich\UploaderBundle\VichUploaderBundle::class => ['all' => true],
     SymfonyCasts\Bundle\ResetPassword\SymfonyCastsResetPasswordBundle::class => ['all' => true],
+    Fresh\DoctrineEnumBundle\FreshDoctrineEnumBundle::class => ['all' => true],
 ];

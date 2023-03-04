@@ -60,6 +60,9 @@ class Character implements TimestampedInterface, SlugInterface
     #[ORM\Column(length: 50)]
     private ?string $slug = null;
 
+    #[ORM\Column(nullable: true)]
+    private array $job = [];
+
     public function __construct()
     {
         $this->updatedAt = new DateTimeImmutable();
@@ -194,5 +197,17 @@ class Character implements TimestampedInterface, SlugInterface
     public function __toString()
     {
         return $this->name;
+    }
+
+    public function getJob(): array
+    {
+        return $this->job;
+    }
+
+    public function setJob(?array $job): self
+    {
+        $this->job = $job;
+
+        return $this;
     }
 }

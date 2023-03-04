@@ -73,6 +73,24 @@ class CharacterCrudController extends AbstractCrudController
             'Tzimisce' => 'Tzimisce',
         ]);
         yield $sulgField = SlugField::new('slug')->hideOnForm()->setTargetFieldName('name');
+        yield ChoiceField::new('job')
+            ->setLabel('Le ou les postes du personnage')
+            ->allowMultipleChoices()
+            ->setChoices([
+                'Prince' => 'prince',
+                'Sénéchale' => 'senechale',
+                'Bailly' => 'bailly',
+                'Maître(sse) des harpies' => 'maitre des harpies',
+                'Harpie majeur' => 'harpie majeur',
+                'Harpie' => 'harpie',
+                'Prévôt' => 'prevot',
+                'Sentinelle majeur' => 'sentinelle majeur',
+                'Sentinelle' => 'sentinelle',
+                'Fléau' => 'fléau',
+                'Gardien d\'éliséum' => 'gardien',
+                'Primogène' => 'primogene',
+                'Fouet' => 'fouet',
+            ]);
         yield AssociationField::new('jobs')->setLabel('Dans qu\'elle categorie de poste le personage doit apparaître ')->hideOnIndex();
         yield DateTimeField::new('createdAt')->hideOnForm();
         yield DateTimeField::new('updatedAt')->hideOnForm();

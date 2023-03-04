@@ -3,21 +3,23 @@
 	<div class="d-flex align-items-center space justify-content-center">
 		<a href="/" class="d-flex align-items-center justify-content-center"><img src="{{ asset('build/images/logo.png') }}" class="logoSize" alt="Logo"/></a>
 	</div>
-	{% if app.user %}
+	{% if is_granted('ROLE_MEMBER') and app.user.isActivate == true %}
 		<div class="ms-3 my-2 m-md-0">
 			<div class="dropdown">
 				<a class="btn btn-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					{{ app.user.firstname }}
+					{{ app.user.firstname|capitalize }}
 				</a>
-				<ul class="dropdown-menu dropdown-menu-dark bg-primary">
+				<ul class="dropdown-menu dropdown-menu-dark bg-primary border border-dark border-2">
+				{% if is_granted('ROLE_Admin') or is_granted('ROLE_DESK') or is_granted('ROLE_CA') or is_granted('ROLE_STORYTELLER') %}
 					<li>
 						<a class="dropdown-item text-light" href="{{ path('admin') }}">Admin</a>
 					</li>
+					{% endif %}
 					<li>
-						<a class="dropdown-item text-light" href="#">Another action</a>
+						<a class="dropdown-item text-light" href="#">Profil</a>
 					</li>
 					<li>
-						<a class="dropdown-item text-light" href="#">Something else here</a>
+						<a class="dropdown-item text-light" href="#">Demande de personnage</a>
 					</li>
 				</ul>
 			</div>
@@ -34,9 +36,11 @@
 				<a class="nav-item link-light p-2 m-2" href="/">Accueil</a>
 				<a class="nav-item link-light p-2 m-2" href="https://camarilla.fr/forum/" target="_blank">Camarilla-fr.com</a>
 				<a class="nav-item link-light p-2 m-2" href="{{ path('contact') }}">Contact</a>
-				{% if app.user %}
-					<a class="nav-item link-light p-2 m-2" href="#">Ressources</a>
+				{% if is_granted('ROLE_MEMBER') and app.user.isActivate == true %}
 					<a class="nav-item link-light p-2 m-2" href="{{ path('forum_home') }}">Forum</a>
+					<a class="nav-item link-light p-2 m-2" href="#">Ressources</a>
+					{% endif %}
+				{% if app.user %}
 					<a class="nav-item link-primary p-2 m-2" href="{{ path('logout') }}">Déconnexion</a>
 				{% else %}
 					<a class="nav-item link-light p-2 m-2" href="{{ path('login') }}">Connexion</a>

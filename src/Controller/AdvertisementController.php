@@ -6,12 +6,14 @@ use App\Entity\Advertisement;
 use App\Repository\JobCategoryRepository;
 use App\Repository\OffsideCategoryRepository;
 use App\Repository\PraxisCategoryRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdvertisementController extends AbstractController
 {
+    #[IsGranted('ROLE_MEMBER')]
     #[Route('/advertisement/{slug}', name: 'advertisement_show')]
     public function showAdvertisement(?Advertisement $advertisement, 
     OffsideCategoryRepository $offsideCategoryRepos,

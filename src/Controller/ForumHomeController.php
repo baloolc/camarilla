@@ -10,9 +10,11 @@ use App\Repository\PraxisCategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ForumHomeController extends AbstractController
 {
+    #[IsGranted('ROLE_MEMBER')]
     #[Route('/forum/home', name: 'forum_home')]
     public function index(EventRepository $eventRepos, 
     AdvertisementRepository $advertisementRepos,

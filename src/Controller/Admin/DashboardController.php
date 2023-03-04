@@ -10,6 +10,7 @@ use App\Entity\OffsideCategory;
 use App\Entity\PraxisCategory;
 use App\Entity\Presentation;
 use App\Entity\Signature;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -20,17 +21,19 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
-    public function __construct( 
+    public function __construct(
         private AdminUrlGenerator $adminUrlGenerator
-    )
-    {
-        
+    ) {
     }
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
+        if (!$this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('login');
+        }
+
         $url = $this->adminUrlGenerator->setController(EventCrudController::class)
-        ->generateUrl();
+            ->generateUrl();
 
         return $this->redirect($url);
 
@@ -61,44 +64,48 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToRoute('Retourner sur le site', 'fa fa-undo', 'home');
 
-        yield MenuItem::subMenu('Association', 'fa-sharp fa-solid fa-house-laptop')->setSubItems([
-            MenuItem::linkToCrud('Toutes les associations', 'fa-solid fa-igloo', Presentation::class),
-            MenuItem::linkToCrud('Ajouter', 'fas fa-plus', Presentation::class)->setAction(Crud::PAGE_NEW),
-        ]);
 
-        yield MenuItem::subMenu('Évènements', 'fa-regular fa-calendar-days')->setSubItems([
-            MenuItem::linkToCrud('Tous les événements', 'fa-solid fa-users-rectangle', Event::class),
-            MenuItem::linkToCrud('Ajouter', 'fas fa-plus', Event::class)->setAction(Crud::PAGE_NEW),
-        ]);
+            yield MenuItem::subMenu('Association', 'fa-sharp fa-solid fa-house-laptop')->setSubItems([
+                MenuItem::linkToCrud('Toutes les associations', 'fa-solid fa-igloo', Presentation::class),
+                MenuItem::linkToCrud('Ajouter', 'fas fa-plus', Presentation::class)->setAction(Crud::PAGE_NEW),
+            ]);
 
-        yield MenuItem::subMenu('Annonces', 'fa-solid fa-rectangle-ad')->setSubItems([
-            MenuItem::linkToCrud('Toutes les annonces', 'fa-solid fa-clipboard', Advertisement::class),
-            MenuItem::linkToCrud('Ajouter', 'fas fa-plus', Advertisement::class)->setAction(Crud::PAGE_NEW),
-        ]);
+            yield MenuItem::subMenu('Utilisateurs', 'fa-solid fa-users')->setSubItems([
+                MenuItem::linkToCrud('Tout les utilisateurs', 'fa-solid fa-file-pen', User::class),
+            ]);
 
-        yield MenuItem::subMenu('Personnages', 'fa-sharp fa-solid fa-id-card')->setSubItems([
-            MenuItem::linkToCrud('Tous les personnages', 'fa-solid fa-users', Character::class),
-            MenuItem::linkToCrud('Ajouter', 'fa-solid fa-person-circle-plus', Character::class)->setAction(Crud::PAGE_NEW),
-        ]);
+        if ($this->isGranted('ROLE_DESK') || $this->isGranted('ROLE_CA')) {
+            yield MenuItem::subMenu('Évènements', 'fa-regular fa-calendar-days')->setSubItems([
+                MenuItem::linkToCrud('Tous les événements', 'fa-solid fa-users-rectangle', Event::class),
+                MenuItem::linkToCrud('Ajouter', 'fas fa-plus', Event::class)->setAction(Crud::PAGE_NEW),
+            ]);
 
-        yield MenuItem::subMenu('Catégories hors jeu', 'fa-brands fa-discord')->setSubItems([
-            MenuItem::linkToCrud('Toutes les catégories hors jeu', 'fa-solid fa-hippo', OffsideCategory::class),
-            MenuItem::linkToCrud('Ajouter', 'fas fa-plus', OffsideCategory::class)->setAction(Crud::PAGE_NEW),
-        ]);
+            yield MenuItem::subMenu('Annonces', 'fa-solid fa-rectangle-ad')->setSubItems([
+                MenuItem::linkToCrud('Toutes les annonces', 'fa-solid fa-clipboard', Advertisement::class),
+                MenuItem::linkToCrud('Ajouter', 'fas fa-plus', Advertisement::class)->setAction(Crud::PAGE_NEW),
+            ]);
 
-        yield MenuItem::subMenu('Catégories de la praxis', 'fa-solid fa-dice-d20')->setSubItems([
-            MenuItem::linkToCrud('Toutes les catégories en jeu', 'fa-solid fa-table-tennis-paddle-ball', PraxisCategory::class),
-            MenuItem::linkToCrud('Ajouter', 'fas fa-plus', PraxisCategory::class)->setAction(Crud::PAGE_NEW),
-        ]);
+            yield MenuItem::subMenu('Catégories hors jeu', 'fa-brands fa-discord')->setSubItems([
+                MenuItem::linkToCrud('Toutes les catégories hors jeu', 'fa-solid fa-hippo', OffsideCategory::class),
+                MenuItem::linkToCrud('Ajouter', 'fas fa-plus', OffsideCategory::class)->setAction(Crud::PAGE_NEW),
+            ]);
+        }
 
-        yield MenuItem::subMenu('Catégories des postes', 'fa-solid fa-broom-ball')->setSubItems([
-            MenuItem::linkToCrud('Toutes les catégories des postes', 'fa-brands fa-napster', JobCategory::class),
-            MenuItem::linkToCrud('Ajouter', 'fas fa-plus', JobCategory::class)->setAction(Crud::PAGE_NEW),
-        ]);
+        if ($this->isGranted('ROLE_STORYTELLER')) {
+            yield MenuItem::subMenu('Personnages', 'fa-sharp fa-solid fa-id-card')->setSubItems([
+                MenuItem::linkToCrud('Tous les personnages', 'fa-solid fa-users', Character::class),
+                MenuItem::linkToCrud('Ajouter', 'fa-solid fa-person-circle-plus', Character::class)->setAction(Crud::PAGE_NEW),
+            ]);
 
-        yield MenuItem::subMenu('Signatures des personnages', 'fa-solid fa-pencil')->setSubItems([
-            MenuItem::linkToCrud('Toutes les signatures des personnages', 'fa-solid fa-file-pen', Signature::class),
-            MenuItem::linkToCrud('Ajouter', 'fas fa-plus', Signature::class)->setAction(Crud::PAGE_NEW),
-        ]);
+            yield MenuItem::subMenu('Catégories de la praxis', 'fa-solid fa-dice-d20')->setSubItems([
+                MenuItem::linkToCrud('Toutes les catégories en jeu', 'fa-solid fa-table-tennis-paddle-ball', PraxisCategory::class),
+                MenuItem::linkToCrud('Ajouter', 'fas fa-plus', PraxisCategory::class)->setAction(Crud::PAGE_NEW),
+            ]);
+
+            yield MenuItem::subMenu('Catégories des postes', 'fa-solid fa-broom-ball')->setSubItems([
+                MenuItem::linkToCrud('Toutes les catégories des postes', 'fa-brands fa-napster', JobCategory::class),
+                MenuItem::linkToCrud('Ajouter', 'fas fa-plus', JobCategory::class)->setAction(Crud::PAGE_NEW),
+            ]);
+        }
     }
 }

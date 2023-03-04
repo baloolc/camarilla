@@ -51,10 +51,11 @@ security:
          #- { path: ^/bureau, roles: ROLE_DESK }
 
     role_hierarchy:
-        ROLE_STORYTELLER: ROLE_USER
-        ROLE_CA: ROLE_USER
+        ROLE_MEMBER: ROLE_USER
+        ROLE_STORYTELLER: ROLE_MEMBER
+        ROLE_CA: ROLE_MEMBER
         ROLE_DESK: ROLE_CA
-        ROLE_SUPER_ADMIN: [ROLE_STORYTELLER, ROLE_DESK]
+        ROLE_ADMIN: [ROLE_STORYTELLER, ROLE_DESK, ROLE_CA]
 
 when@test:
     security:

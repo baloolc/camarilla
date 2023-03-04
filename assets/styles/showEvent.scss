@@ -13,3 +13,9 @@
     height: 67vh;
     width: clamp(21.5rem, 75vw, 74.5rem );
 }
+
+@media screen and (max-width: 768px) {
+    .eventImg {
+        height: 40vh;
+    }
+}

@@ -56,6 +56,18 @@
             "ref": "b131e6cbfe1b898a508987851963fff485986285"
         }
     },
+    "fresh/doctrine-enum-bundle": {
+        "version": "9.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "6.0",
+            "ref": "fab86661c13bc12e4f14f706c86af09912d55bfb"
+        },
+        "files": [
+            "src/DBAL/Types/.gitignore"
+        ]
+    },
     "phpunit/phpunit": {
         "version": "9.5",
         "recipe": {
@@ -326,6 +338,18 @@
             "./config/packages/webpack_encore.yaml",
             "./package.json",
             "./webpack.config.js"
+        ]
+    },
+    "symfony/workflow": {
+        "version": "6.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "3.3",
+            "ref": "3b2f8ca32a07fcb00f899649053943fa3d8bbfb6"
+        },
+        "files": [
+            "config/packages/workflow.yaml"
         ]
     },
     "symfonycasts/reset-password-bundle": {
