@@ -7,6 +7,10 @@ parameters:
     mailer_bureau: '%env(resolve:MAILER_FROM_ADDRESS)%'
     medias_event: 'public/uploads/eventMedia'
     uploads_event: 'uploads/eventMedia'
+    medias_user: 'public/uploads/userMedia'
+    uploads_user: 'uploads/userMedia'
+    medias_character: 'public/uploads/characterMedia'
+    uploads_character: 'uploads/characterMedia'
 services:
     # default configuration for services in *this* file
     _defaults:

@@ -7,6 +7,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -41,8 +43,13 @@ class UserCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        $mediaUser = $this->getParameter('medias_user');
+        $mediaUpload = 'uploads/userMedia/';
+
         yield TextField::new('firstname')->onlyOnIndex();
         yield TextField::new('lastname')->onlyOnIndex();
+        yield DateTimeField::new('createdAt')->setLabel('Date de création')->onlyWhenCreating();
+        yield DateTimeField::new('updatedAt')->setLabel('Date de mise à jour')->hideOnForm();
 
         if(Crud::PAGE_EDIT){
             yield BooleanField::new('isActivate')->setLabel('Activation du compte')->onlyOnForms();
@@ -66,6 +73,11 @@ class UserCrudController extends AbstractCrudController
         }
         if(Crud::PAGE_INDEX){
             yield BooleanField::new('isActivate')->addJsFiles()->setLabel('Activation du compte')->onlyOnIndex()->renderAsSwitch(false);
+            yield ImageField::new('userAvatar', 'Image')
+            ->setBasePath($mediaUpload)
+            ->setUploadDir($mediaUser)
+            ->setUploadedFileNamePattern('[firstname]-[uuid].[extension]')
+            ->onlyOnIndex();
         }
     }
 }

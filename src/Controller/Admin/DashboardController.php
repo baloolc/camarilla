@@ -9,7 +9,6 @@ use App\Entity\JobCategory;
 use App\Entity\OffsideCategory;
 use App\Entity\PraxisCategory;
 use App\Entity\Presentation;
-use App\Entity\Signature;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -64,7 +63,7 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToRoute('Retourner sur le site', 'fa fa-undo', 'home');
 
-
+        if ($this->isGranted('ROLE_DESK')) {
             yield MenuItem::subMenu('Association', 'fa-sharp fa-solid fa-house-laptop')->setSubItems([
                 MenuItem::linkToCrud('Toutes les associations', 'fa-solid fa-igloo', Presentation::class),
                 MenuItem::linkToCrud('Ajouter', 'fas fa-plus', Presentation::class)->setAction(Crud::PAGE_NEW),
@@ -73,6 +72,7 @@ class DashboardController extends AbstractDashboardController
             yield MenuItem::subMenu('Utilisateurs', 'fa-solid fa-users')->setSubItems([
                 MenuItem::linkToCrud('Tout les utilisateurs', 'fa-solid fa-file-pen', User::class),
             ]);
+        }
 
         if ($this->isGranted('ROLE_DESK') || $this->isGranted('ROLE_CA')) {
             yield MenuItem::subMenu('Évènements', 'fa-regular fa-calendar-days')->setSubItems([

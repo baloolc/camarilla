@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
@@ -46,7 +47,15 @@ class CharacterCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        $mediaCharacter = $this->getParameter('medias_character');
+        $mediaUpload = 'uploads/characterMedia/';
+
         yield TextField::new('name')->setLabel('Nom du personnage')->setCustomOption(self::MAXLENGHT, null);
+        yield ImageField::new('characterAvatar', 'Image')
+            ->setBasePath($mediaUpload)
+            ->setUploadDir($mediaCharacter)
+            ->setUploadedFileNamePattern('[slug]-[uuid].[extension]')
+            ->onlyOnIndex();
         yield UrlField::new('linkCharacter')->setLabel('Lien de la fiche personnage')->hideOnIndex();
         yield ChoiceField::new('ageStatus')->setLabel('Status d\'âge')->autocomplete()->setChoices([
             'Infant sous tutelle' => 'Infant sous tutelle',
@@ -72,7 +81,6 @@ class CharacterCrudController extends AbstractCrudController
             'Caïtif' => 'Caïtif',
             'Tzimisce' => 'Tzimisce',
         ]);
-        yield $sulgField = SlugField::new('slug')->hideOnForm()->setTargetFieldName('name');
         yield ChoiceField::new('job')
             ->setLabel('Le ou les postes du personnage')
             ->allowMultipleChoices()

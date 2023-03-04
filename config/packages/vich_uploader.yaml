@@ -13,3 +13,21 @@ vich_uploader:
             inject_on_load: false
             delete_on_update: false
             delete_on_remove: true
+        
+        user_avatar:
+            uri_prefix: /images/userAvatars
+            upload_destination: '%uploads_user%'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+            inject_on_load: false
+            delete_on_update: false
+            delete_on_remove: true
+
+        character_avatar:
+            uri_prefix: /images/characterAvatars
+            upload_destination: '%uploads_character%'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+            inject_on_load: false
+            delete_on_update: false
+            delete_on_remove: true
