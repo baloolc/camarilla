@@ -48,11 +48,11 @@ class UserCrudController extends AbstractCrudController
 
         yield TextField::new('firstname')->onlyOnIndex();
         yield TextField::new('lastname')->onlyOnIndex();
-        yield DateTimeField::new('createdAt')->setLabel('Date de création')->onlyWhenCreating();
-        yield DateTimeField::new('updatedAt')->setLabel('Date de mise à jour')->hideOnForm();
+        yield DateTimeField::new('createdAt')->setLabel('Date de création')->onlyOnDetail();
+        yield DateTimeField::new('updatedAt')->setLabel('Date de mise à jour')->onlyOnDetail();
 
         if(Crud::PAGE_EDIT){
-            yield BooleanField::new('isActivate')->setLabel('Activation du compte')->onlyOnForms();
+            yield BooleanField::new('isActivate')->setLabel('Activation du compte')->onlyOnForms()->hideWhenCreating();
         yield ChoiceField::new('roles')
             ->setLabel('Rôle de l\'utilisateur')
             ->allowMultipleChoices()
@@ -69,7 +69,8 @@ class UserCrudController extends AbstractCrudController
                 'CA' => 'ROLE_CA',
                 'Conteur' => 'ROLE_STORYTELLER',
                 'Utilisateur' => 'ROLE_MEMBER',
-            ]);
+            ])
+            ->hideWhenCreating();
         }
         if(Crud::PAGE_INDEX){
             yield BooleanField::new('isActivate')->addJsFiles()->setLabel('Activation du compte')->onlyOnIndex()->renderAsSwitch(false);
