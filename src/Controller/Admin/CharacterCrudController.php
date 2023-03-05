@@ -35,9 +35,8 @@ class CharacterCrudController extends AbstractCrudController
         $entityLabelPlurial = 'Tous les personnages';
 
         return $crud
-        ->setEntityLabelInSingular($entityLabelSingular)
-        ->setEntityLabelInPlural($entityLabelPlurial)
-        ;
+            ->setEntityLabelInSingular($entityLabelSingular)
+            ->setEntityLabelInPlural($entityLabelPlurial);
     }
 
     private function getSubMenuIndex()
@@ -50,6 +49,9 @@ class CharacterCrudController extends AbstractCrudController
         $mediaCharacter = $this->getParameter('medias_character');
         $mediaUpload = 'uploads/characterMedia/';
 
+        if (Crud::PAGE_INDEX) {
+            yield AssociationField::new('user')->setLabel('Utilisateur');
+        }
         yield TextField::new('name')->setLabel('Nom du personnage')->setCustomOption(self::MAXLENGHT, null);
         yield ImageField::new('characterAvatar', 'Image')
             ->setBasePath($mediaUpload)
@@ -84,6 +86,7 @@ class CharacterCrudController extends AbstractCrudController
         yield ChoiceField::new('job')
             ->setLabel('Le ou les postes du personnage')
             ->allowMultipleChoices()
+            ->hideOnIndex()
             ->setChoices([
                 'Prince' => 'prince',
                 'Sénéchale' => 'senechale',
@@ -99,9 +102,28 @@ class CharacterCrudController extends AbstractCrudController
                 'Primogène' => 'primogene',
                 'Fouet' => 'fouet',
             ]);
+        if (Crud::PAGE_INDEX) {
+            yield ChoiceField::new('job')->setLabel('Poste(s)')
+            ->allowMultipleChoices()
+            ->setChoices([
+                'Prince' => 'prince',
+                'Sénéchale' => 'senechale',
+                'Bailly' => 'bailly',
+                'Maître(sse) des harpies' => 'maitre des harpies',
+                'Harpie majeur' => 'harpie majeur',
+                'Harpie' => 'harpie',
+                'Prévôt' => 'prevot',
+                'Sentinelle majeur' => 'sentinelle majeur',
+                'Sentinelle' => 'sentinelle',
+                'Fléau' => 'fléau',
+                'Gardien d\'éliséum' => 'gardien',
+                'Primogène' => 'primogene',
+                'Fouet' => 'fouet',
+            ]);
+        }
         yield AssociationField::new('jobs')->setLabel('Dans qu\'elle categorie de poste le personage doit apparaître ')->hideOnIndex();
+        yield AssociationField::new('user')->setLabel('A quel utilisateur appartient le personnage')->hideOnIndex();
         yield DateTimeField::new('createdAt')->hideOnForm();
         yield DateTimeField::new('updatedAt')->hideOnForm();
-
     }
 }

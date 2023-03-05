@@ -280,4 +280,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Activat
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->firstname;
+    }
+
 }

@@ -46,7 +46,7 @@ class AdvertisementCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('name')->setLabel('Titre')->setCustomOption(self::MAXLENGHT, null);
-        yield $sulgField = SlugField::new('slug')->hideOnForm()->setTargetFieldName('name');
+        yield SlugField::new('slug')->hideOnForm()->setTargetFieldName('name')->hideOnIndex();
         yield DateField::new('advertisementDate')->renderAsNativeWidget(false)->setLabel('Date de l\'annonce');
         yield TextEditorField::new('content')->setLabel('Contenu')->hideOnIndex();
         yield DateTimeField::new('createdAt')->setLabel('Date de création')->hideOnForm();
