@@ -63,6 +63,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Activat
     )]
     private ?File $userAvatarFile = null;
 
+    #[Assert\Length(
+        max: 255,
+    )]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $userAvatar = null;
 
@@ -74,6 +77,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Activat
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $createdAt = null;
+
+    #[Assert\Length(
+        max: 255,
+    )]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $slug = null;
 
     public function __construct()
     {
@@ -283,6 +292,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Activat
     public function __toString()
     {
         return $this->firstname;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 
 }

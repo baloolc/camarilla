@@ -33,6 +33,13 @@ class RegistrationController extends AbstractController
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
+        
+        $firstname = $user->getFirstName();
+        $lastname = $user->getLastName();
+        $firstnameModif = str_replace(' ', '-', $firstname);
+        $lastnameModif = str_replace(' ', '-', $lastname);
+        $slugUser = trim($lastnameModif . '-' . $firstnameModif);
+        $user->setSlug($slugUser);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password

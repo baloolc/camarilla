@@ -68,7 +68,7 @@ class EventCrudController extends AbstractCrudController
         }
 
         yield TextField::new('name')->setLabel('Titre')->setCustomOption(self::MAXLENGHT, null);
-        yield $sulgField = SlugField::new('slug')->hideOnForm()->setTargetFieldName('name');
+        yield SlugField::new('slug')->hideOnForm()->setTargetFieldName('name');
         yield DateField::new('eventDate')->renderAsNativeWidget(false)->setLabel('Date de l\'évènement');
         yield $imagefield;
         yield $vichImagefield;
