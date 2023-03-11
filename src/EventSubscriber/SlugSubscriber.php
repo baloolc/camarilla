@@ -24,8 +24,9 @@ class SlugSubscriber implements EventSubscriberInterface
         }
 
         $name = $entity->getName();
+        $id = $entity->getId();
         $nameModif = str_replace(' ', '-', $name);
-        $slug = trim($nameModif);
+        $slug = trim($nameModif) . '-' . $id;
         
         $entity->setSlug($slug);
     }
