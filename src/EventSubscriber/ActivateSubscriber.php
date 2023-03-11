@@ -2,10 +2,10 @@
 
 namespace App\EventSubscriber;
 
+use App\Controller\Admin\UserAdminController;
 use App\Model\ActivateInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-
 
 class ActivateSubscriber implements EventSubscriberInterface
 {
@@ -33,8 +33,10 @@ class ActivateSubscriber implements EventSubscriberInterface
             $entity->setIsActivate(false);
             $entity->setRoles(['ROLE_USER']);
         } elseif ($entity->isActivate() === true && $entity->isVerified() === true) {
+            /* $userAdminController = new UserAdminController($entity->getEmail()); */
             $role = $entity->getRoles();
             $entity->setRoles($role);
+            /* UserAdminController::sendEmail($entity->getEmail()); */
         }
     }
 }

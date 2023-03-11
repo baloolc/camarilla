@@ -11,5 +11,6 @@ interface ActivateInterface
     public function isVerified(): bool;
     public function getRoles(): array;
     public function setRoles(array $roles): self;
+    public function getEmail(): ?string;
 
 }

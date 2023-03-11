@@ -23,18 +23,18 @@
 	</div>
 	<section>
 		<div class="d-flex justify-content-center my-4 p-3 p-lg-0">
-			<h2 class="bg-primary border border-dark border-2 text-light p-3 rounded">Présentation de l'association</h2>
+			<h2 class="bg-primary border border-2 border-info text-light p-3 rounded">Présentation de l'association</h2>
 		</div>
 		<div class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-around pe-lg-4">
 			<div class="d-flex flex-column">
 				{% for presentation in presentations %}
-					<div class="mb-lg-5 ps-lg-5 pe-lg-5 px-3 ms-lg-3">
+					<div class="mb-lg-5 ps-lg-5 pe-lg-5 px-3 ms-lg-3 text-light">
 						<h3 class="my-4">{{ presentation.name|capitalize }}</h3>
 						<p>{{ presentation.content|raw }}</p>
-						<p class="">
+						<p>
 							<i>{{ presentation.adress }}</i>
 						</p>
-						<p class="">
+						<p>
 							<i>{{ presentation.email }}</i>
 						</p>
 						<hr>

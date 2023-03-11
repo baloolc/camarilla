@@ -1,10 +1,10 @@
 @import "variable.scss";
 
 .formStyle {
-    border-color: $primary;
+    border-color: $info;
     border-radius: $border;
-    outline-color: $primary;
-    background-color: $dark;
+    outline-color: $info;
+    background-color: $primary;
     color: $light;
     appearance: listbox;
 }

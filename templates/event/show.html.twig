@@ -21,7 +21,7 @@
 							<i class="bi bi-arrow-right-square"></i>
 						</a>
 					</div>
-					<div class="d-none d-md-flex col-md-2 bg-dark sidebar">
+					<div class="d-none d-md-flex col-md-2 bg-dark sidebar border-end border-primary border-2">
 						{% include 'component/_forum_sidebar.html.twig' %}
 					</div>
 					<div class="d-md-none d-flex col-md-2 bg-dark sidebar">
@@ -29,7 +29,7 @@
 					</div>
 					<div data-bs-spy="scroll" data-bs-target="#sidebar" data-bs-offset="0" data-bs-smooth-scroll="true" class="col-12 col-md-10 p-0" tabindex="0">
 						<div class="d-flex justify-content-center">
-							<div class="bg-primary border border-dark border-2 text-light p-3 rounded d-flex flex-column align-items-center flex-md-row my-4">
+							<div class="bg-primary border border-info border-2 text-light p-3 rounded d-flex flex-column align-items-center flex-md-row my-4">
 								<div class="me-md-2">
 									<h1 class="">Evènement</h1>
 								</div>
@@ -59,10 +59,10 @@
 						<div class="d-flex flex-column align-items-center">
 							<div class="w-75">
 								<div class="my-4">
-									<h2 class="fw-bold text-black">Description de l'évènement</h2>
+									<h2 class="fw-bold text-light"><u>Description de l'évènement</u></h2>
 								</div>
 								<div class="mb-4">
-									<p class="fs-4 fw-bold text-black">{{ event.description|striptags|nl2br}}</p>
+									<p class="fs-4 fw-bold text-light">{{ event.description|striptags|nl2br}}</p>
 								</div>
 								<hr>
 							</div>
@@ -70,13 +70,13 @@
 						<div class="d-flex flex-column align-items-center">
 							<div class="my-4 w-75">
 								<div class="my-4">
-									<h2 class="fw-bold text-black">Inscription à l'évènement</h2>
+									<h2 class="fw-bold text-light"><u>Inscription à l'évènement</u></h2>
 								</div>
 								<div class="w-75 mb-4">
 									{{ form_start(form) }}
-									{{ form_row (form.status, {'attr':{'class':'form-control formStyle mt-1 mb-4 fw-bold'}}) }}
-									<div class="">
-										<button class="btn btn-primary text-light border border-dark">
+									{{ form_row (form.status, {'label_attr': {'class': 'text-light'}, 'attr':{'class':'form-control formStyle mt-1 mb-4 fw-bold'}}) }}
+									<div>
+										<button class="btn btn-primary text-light border border-info">
 											<i class="bi bi-check-circle me-1"></i>
 											{{ button_label|default('Valider') }}
 										</button>
@@ -89,37 +89,37 @@
 						<div class="d-flex flex-column align-items-center">
 							<div class="w-75">
 								<div class="my-4">
-									<h2 class="fw-bold text-black">Participants</h2>
+									<h2 class="fw-bold text-light"><u>Participants</u></h2>
 								</div>
 								{% if event.nbParticipant is empty %}
 									<div class="">
-										<p class="fs-5 fw-bold text-black">Il y a 0 participant.</p>
+										<p class="fs-5 fw-bold text-light">Il y a 0 participant.</p>
 									</div>
 								{% else %}
 									<div class="">
-										<p class="fs-5 fw-bold text-black">Il y a
+										<p class="fs-5 fw-bold text-light">Il y a
 											{{ event.nbParticipant }}
 											participant(s).</p>
 									</div>
 								{% endif %}
 								{% if event.nbMaybe is empty %}
 									<div class="my-2">
-										<p class="fs-5 fw-bold text-black">Il y a 0 peut être.</p>
+										<p class="fs-5 fw-bold text-light">Il y a 0 peut être.</p>
 									</div>
 								{% else %}
 									<div class="my-2">
-										<p class="fs-5 my-2 fw-bold text-black">Il y a
+										<p class="fs-5 my-2 fw-bold text-light">Il y a
 											{{ event.nbMaybe }}
 											de peut être.</p>
 									</div>
 								{% endif %}
 								{% if event.nbNoParticipant is empty %}
 									<div class="">
-										<p class="fs-5 fw-bold text-black">Il y a 0 de non participant.</p>
+										<p class="fs-5 fw-bold text-light">Il y a 0 de non participant.</p>
 									</div>
 								{% else %}
 									<div class="">
-										<p class="fs-5 fw-bold text-black">Il y a
+										<p class="fs-5 fw-bold text-light">Il y a
 											{{ event.nbNoParticipant }}
 											de non participant(s).</p>
 									</div>
