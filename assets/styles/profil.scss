@@ -1,1 +1,32 @@
 @import "variable.scss";
+
+.avatarImg {
+    height: 45vh;
+    width: clamp(20rem, 40vw, 35rem );
+}
+
+.avatarUserImg {
+    height: 15vh;
+    width: clamp(7rem, 10vw, 10rem );
+}
+
+.bgImg {
+    background-color: $light;
+}
+
+.formStyle {
+    border-color: $info;
+    border-radius: $border;
+    outline-color: $info;
+    background-color: $primary;
+    color: $light;
+    appearance: listbox;
+}
+
+.bgEditProfil{
+    height: 82vh;
+    background-image: url("../images/editprofiluser.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}

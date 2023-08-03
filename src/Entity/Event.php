@@ -198,10 +198,10 @@ class Event implements TimestampedInterface, SlugInterface
         return $this;
     }
 
-    public function setFilenameFile(File $image = null): Event
+    public function setFilenameFile(File $filenameFile = null): Event
 
     {
-        $this->filenameFile = $image;
+        $this->filenameFile = $filenameFile;
 
         return $this;
     }

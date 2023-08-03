@@ -13,13 +13,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use App\Model\SlugInterface;
 use DateTimeInterface;
-use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[UniqueEntity(fields: ['name'])]
 #[ORM\Entity(repositoryClass: CharacterRepository::class)]
 #[ORM\Table(name: '`character`')]
-#[Vich\Uploadable]
 class Character implements TimestampedInterface, SlugInterface
 {
     #[ORM\Id]
@@ -54,9 +51,6 @@ class Character implements TimestampedInterface, SlugInterface
     #[ORM\ManyToMany(targetEntity: JobCategory::class, inversedBy: 'characters')]
     private Collection $jobs;
 
-    #[ORM\OneToOne(inversedBy: 'liveCharacter', cascade: ['persist', 'remove'])]
-    private ?Signature $signature = null;
-
     #[Assert\Length(
         max: 50,
     )]
@@ -72,24 +66,14 @@ class Character implements TimestampedInterface, SlugInterface
     #[ORM\Column(nullable: true)]
     private array $job = [];
 
-    #[Vich\UploadableField(mapping: 'character_avatar', fileNameProperty: 'characterAvatar')]
-    #[Assert\File(
-
-        maxSize: '500K',
-    
-        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
-    
-    )]
-    private ?File $characterAvatarFile = null;
-
-    #[Assert\Length(
-        max: 255,
-    )]
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $characterAvatar = null;
-
     #[ORM\ManyToOne(inversedBy: 'characters')]
     private ?User $user = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $recognize = null;
+
+    #[ORM\OneToOne(mappedBy: 'personal', cascade: ['persist', 'remove'])]
+    private ?CharacterMedia $characterMedia = null;
 
     public function __construct()
     {
@@ -186,18 +170,6 @@ class Character implements TimestampedInterface, SlugInterface
         return $this;
     }
 
-    public function getSignature(): ?Signature
-    {
-        return $this->signature;
-    }
-
-    public function setSignature(?Signature $signature): self
-    {
-        $this->signature = $signature;
-
-        return $this;
-    }
-
     public function getClan(): ?string
     {
         return $this->clan;
@@ -234,18 +206,6 @@ class Character implements TimestampedInterface, SlugInterface
         return $this;
     }
 
-    public function getCharacterAvatar(): ?string
-    {
-        return $this->characterAvatar;
-    }
-
-    public function setCharacterAvatar(?string $characterAvatar): self
-    {
-        $this->characterAvatar = $characterAvatar;
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -258,23 +218,42 @@ class Character implements TimestampedInterface, SlugInterface
         return $this;
     }
 
-    public function setCharacterAvatarFile(File $image = null): Character
-
+    public function __toString()
     {
-        $this->characterAvatarFile = $image;
+        return $this->name;
+    }
+
+    public function getRecognize(): ?string
+    {
+        return $this->recognize;
+    }
+
+    public function setRecognize(?string $recognize): self
+    {
+        $this->recognize = $recognize;
 
         return $this;
     }
 
-
-    public function getCharacterAvatarFile(): ?File
+    public function getCharacterMedia(): ?CharacterMedia
     {
-
-        return $this->characterAvatarFile;
+        return $this->characterMedia;
     }
 
-    public function __toString()
+    public function setCharacterMedia(?CharacterMedia $characterMedia): self
     {
-        return $this->name;
+        // unset the owning side of the relation if necessary
+        if ($characterMedia === null && $this->characterMedia !== null) {
+            $this->characterMedia->setPersonal(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($characterMedia !== null && $characterMedia->getPersonal() !== $this) {
+            $characterMedia->setPersonal($this);
+        }
+
+        $this->characterMedia = $characterMedia;
+
+        return $this;
     }
 }

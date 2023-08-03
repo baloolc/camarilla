@@ -6,10 +6,87 @@
 {% endblock %}
 
 {% block stylesheets %}
+	{{ encore_entry_link_tags("sidebar") }}
 	{{ encore_entry_link_tags("profil") }}
 {% endblock %}
 
 
 {% block body %}
-	
+	<div class="container-fluid">
+		<div class="row">
+			<div class="position-relative p-0 d-flex">
+				<div class="d-md-none d-block offButon p-0 position-fixed mbutton">
+					<a class="btn btn-primary d-flex justify-content-center align-items-center border border-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+						<i class="bi bi-arrow-right-square"></i>
+					</a>
+				</div>
+				<div class="d-none d-md-flex col-md-2 bg-dark sidebar border-end border-primary border-2">
+					{% include 'component/_profil_sidebar.html.twig' %}
+				</div>
+				<div class="d-md-none d-flex col-md-2 bg-dark sidebar">
+					{% include "component/_profil_offcanvas.html.twig" %}
+				</div>
+				<div data-bs-spy="scroll" data-bs-target="#sidebar" data-bs-offset="0" data-bs-smooth-scroll="true" class="col-md-10 col-12 p-0" tabindex="0">
+					<div class="d-flex justify-content-center">
+						<h1 class="bg-primary border border-info border-2 text-light p-3 rounded mt-4 mb-5">Profil de
+							{{ app.user.firstname|capitalize }}
+							{{ app.user.lastname|capitalize }}</h1>
+					</div>
+					<div class="d-flex justify-content-center mb-5 ">
+						{% if app.user.userMedia is defined and app.user.userMedia.avatar is not empty %}
+							<div class="bgImg border border-primary border-4">
+								<img src="/uploads/userAvatarMedia/{{ app.user.userMedia.avatar }}" class="avatarImg" alt="Avatar de l'utilisateur {{ app.user.firstname }}">
+							</div>
+						{% else %}
+							<div class="bgImg border border-primary border-4">
+								<img src="{{ asset('build/images/userAvatar/user_avatar.e6eb5d8f.png') }}" class="avatarImg" alt="Image utilisateur">
+							</div>
+						{% endif %}
+					</div>
+					<div class="d-flex">
+						<div class="col-6">
+							<div class="ms-md-5 ms-3 mb-5">
+								<h2 class="text-light">
+									<u>Caractéristiques du profil :</u>
+								</h2>
+							</div>
+							<div class="ms-md-5 ms-3 mb-5">
+								<div>
+									<h4 class="text-primary">Nom</h4>
+									<p class="text-light">{{ app.user.lastname|capitalize }}</p>
+								</div>
+								<div>
+									<h4 class="text-primary">Prénom</h4>
+									<p class="text-light">{{ app.user.firstname|capitalize }}</p>
+								</div>
+								<div>
+									<h4 class="text-primary">Email</h4>
+									<p class="text-light">{{ app.user.email }}</p>
+								</div>
+								<div>
+									<h4 class="text-primary">Avatar</h4>
+									<div class="d-flex justify-content-start mb-5">
+										{% if app.user.userMedia is defined and app.user.userMedia.avatar is not empty %}
+											<div class="bgImg border border-primary border-4">
+												<img src="/uploads/userAvatarMedia/{{ app.user.userMedia.avatar }}" class="avatarImg" alt="Avatar de l'utilisateur {{ app.user.firstname }}">
+											</div>
+										{% else %}
+											<div class="bgImg border border-primary border-4">
+												<img src="{{ asset('build/images/userAvatar/user_avatar.e6eb5d8f.png') }}" class="avatarImg" alt="Image utilisateur">
+											</div>
+										{% endif %}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-5 d-flex justify-content-center align-items-center">
+							<a class="btn btn-dark border border-primary border-2 mb-5 ms-4 ms-md-0" href="{{ path('user_profil_edit', {'slug': user.slug})}}">
+								<i class="bi bi-pencil-square me-2"></i>
+								Modifier</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

@@ -53,7 +53,7 @@ class CharacterCrudController extends AbstractCrudController
             yield AssociationField::new('user')->setLabel('Utilisateur');
         }
         yield TextField::new('name')->setLabel('Nom du personnage')->setCustomOption(self::MAXLENGHT, null);
-        yield ImageField::new('characterAvatar', 'Image')
+        yield ImageField::new('media', 'Image')
             ->setBasePath($mediaUpload)
             ->setUploadDir($mediaCharacter)
             ->setUploadedFileNamePattern('[slug]-[uuid].[extension]')

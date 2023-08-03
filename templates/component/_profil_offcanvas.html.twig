@@ -1,0 +1,33 @@
+<div class="offcanvas offcanvas-start bg-dark w-75 border-end border-primary border-2" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+	<div class="offcanvas-header d-flex justify-content-end">
+		<button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+	</div>
+	<div class="offcanvas-body">
+		<div class="d-flex flex-column align-items-start ">
+			<div class="ms-3 mt-5">
+				<a class="text-decoration-none fs-1 fw-bold text-light fontstyle" href="{{path('profil_home')}}">
+					<i class="bi bi-house-door fs-4 me-2 text-primary"></i>
+					Accueil profil</a>
+				<ul class="list p-0">
+					<li class="p-1 mb-2">
+						<a class="text-decoration-none fs-1 fw-bold text-light fontstyle" data-bs-toggle="collapse" href="#characters" role="button" aria-expanded="false" aria-controls="collapseExample">
+							<i class="bi bi-person-lines-fill fs-4 me-2 text-primary"></i>Personnages
+							<i class="bi bi-caret-down-fill text-primary fs-4"></i>
+						</a>
+					</li>
+					<div class="collapse" id="characters">
+						<ul class="list">
+							{% for character in user.characters %}
+								<li class="mb-2">
+									<a class="text-decoration-none fs-6 text-primary" href="#">
+										<i class="bi bi-arrow-right-short me-2 text-light"></i>
+										{{ character.name|capitalize|u.truncate(30, '...') }}</a>
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

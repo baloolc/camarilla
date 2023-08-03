@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -75,7 +76,7 @@ class UserCrudController extends AbstractCrudController
         }
         if(Crud::PAGE_INDEX){
             yield BooleanField::new('isActivate')->addJsFiles()->setLabel('Activation du compte')->onlyOnIndex()->renderAsSwitch(false);
-            yield ImageField::new('userAvatar', 'Image')
+            yield ImageField::new('media', 'Image')
             ->setBasePath($mediaUpload)
             ->setUploadDir($mediaUser)
             ->setUploadedFileNamePattern('[firstname]-[uuid].[extension]')

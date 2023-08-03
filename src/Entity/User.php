@@ -13,15 +13,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'Un compte existe déjà avec cette adresse email !')]
-#[Vich\Uploadable]
 class User implements UserInterface, PasswordAuthenticatedUserInterface, ActivateInterface, TimestampedInterface
 {
     #[ORM\Id]
@@ -53,22 +51,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Activat
     #[ORM\Column(type: 'boolean')]
     private ?bool $isVerified = false;
 
-    #[Vich\UploadableField(mapping: 'user_avatar', fileNameProperty: 'userAvatar')]
-    #[Assert\File(
-
-        maxSize: '500K',
-    
-        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
-    
-    )]
-    private ?File $userAvatarFile = null;
-
-    #[Assert\Length(
-        max: 255,
-    )]
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $userAvatar = null;
-
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Character::class)]
     private Collection $characters;
 
@@ -84,10 +66,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Activat
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $slug = null;
 
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?UserMedia $userMedia = null;
+
     public function __construct()
     {
         $this->characters = new ArrayCollection();
         $this->updatedAt = new DateTimeImmutable();
+        $this->createdAt = new DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -208,18 +194,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Activat
         return $this;
     }
 
-    public function getUserAvatar(): ?string
-    {
-        return $this->userAvatar;
-    }
-
-    public function setUserAvatar(?string $userAvatar): self
-    {
-        $this->userAvatar = $userAvatar;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Character>
      */
@@ -250,21 +224,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Activat
         return $this;
     }
 
-    public function setUserAvatarFile(File $image = null): User
-
-    {
-        $this->userAvatarFile = $image;
-
-        return $this;
-    }
-
-
-    public function getUserAvatarFile(): ?File
-    {
-
-        return $this->userAvatarFile;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -291,7 +250,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Activat
 
     public function __toString()
     {
-        return $this->firstname;
+        $userFirstname = $this->firstname;
+        $userLastname = $this->lastname;
+        $userName = $userFirstname . ' ' . $userLastname;
+        return $userName;
     }
 
     public function getSlug(): ?string
@@ -302,6 +264,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Activat
     public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getUserMedia(): ?UserMedia
+    {
+        return $this->userMedia;
+    }
+
+    public function setUserMedia(?UserMedia $userMedia): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($userMedia === null && $this->userMedia !== null) {
+            $this->userMedia->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($userMedia !== null && $userMedia->getUser() !== $this) {
+            $userMedia->setUser($this);
+        }
+
+        $this->userMedia = $userMedia;
 
         return $this;
     }

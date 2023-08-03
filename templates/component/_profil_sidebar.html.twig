@@ -1,0 +1,26 @@
+<nav id="sidebar" class="d-flex flex-column">
+	<div class="d-flex flex-column align-items-start position-fixed">
+    <div class="ms-3 mt-5">
+		<a class="text-decoration-none fs-2 text-light fontstyle fw-bold" href="{{ path('profil_home') }}">
+			<i class="bi bi-house-door fs-4 me-2 text-primary"></i>Accueil profil</a>
+            </div>
+		<ul class="list ps-2">
+			<li class="p-1 mb-2 ms-2">
+				<a class="text-decoration-none fs-2 fw-bold text-light fontstyle" data-bs-toggle="collapse" href="#characters" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-person-lines-fill fs-4 me-2 text-primary"></i>Personnages
+					<i class="bi bi-caret-down-fill text-primary fs-4"></i>
+				</a>
+			</li>
+			<div class="collapse" id="characters">
+				<ul class="list">
+					{% for character in user.characters %}
+						<li class="mb-2">
+							<a class="text-decoration-none fs-6 text-primary" href="#">
+								<i class="bi bi-arrow-right-short me-2 text-light"></i>
+								{{ character.name|capitalize|u.truncate(30, '...') }}</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</ul>
+	</div>
+</nav>

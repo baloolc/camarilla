@@ -38,7 +38,7 @@ class RegistrationController extends AbstractController
         $lastname = $user->getLastName();
         $firstnameModif = str_replace(' ', '-', $firstname);
         $lastnameModif = str_replace(' ', '-', $lastname);
-        $slugUser = trim($lastnameModif . '-' . $firstnameModif);
+        $slugUser = trim($lastnameModif . '' . $firstnameModif);
         $user->setSlug($slugUser);
 
         if ($form->isSubmitted() && $form->isValid()) {
