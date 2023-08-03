@@ -18,11 +18,6 @@ class UserMediaType extends AbstractType
             'required' => false,
             'label' => 'Avatar',
             'data_class' => null,
-            'constraints' => [
-                new File([
-                    'maxSize' => '500k',
-                ])
-            ],
         ]);
     }   
 

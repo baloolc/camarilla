@@ -64,18 +64,6 @@
 									<p class="text-light">{{ app.user.email }}</p>
 								</div>
 								<div>
-									<h4 class="text-primary">Avatar</h4>
-									<div class="d-flex justify-content-start mb-5">
-										{% if app.user.userMedia is defined and app.user.userMedia.avatar is not empty %}
-											<div class="bgImg border border-primary border-4">
-												<img src="/uploads/userAvatarMedia/{{ app.user.userMedia.avatar }}" class="avatarImg" alt="Avatar de l'utilisateur {{ app.user.firstname }}">
-											</div>
-										{% else %}
-											<div class="bgImg border border-primary border-4">
-												<img src="{{ asset('build/images/userAvatar/user_avatar.e6eb5d8f.png') }}" class="avatarImg" alt="Image utilisateur">
-											</div>
-										{% endif %}
-									</div>
 								</div>
 							</div>
 						</div>
