@@ -34,3 +34,17 @@
 .error ul > li {
     color : $primary;
 }
+
+@media screen and (max-width: 768px) {
+    .avatarImg {
+        height: 30vh;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .bgEditProfil {
+        height: 98vh;
+        background-position: start;
+        background-size: contain;
+    }
+}

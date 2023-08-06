@@ -57,13 +57,15 @@ class UserController extends AbstractController
             $uploadedFile = $mediaForm['avatar']->getData();
 
             if ($uploadedFile) {
-                $newFilename = uniqid() . '.' . $uploadedFile->getClientOriginalExtension();
+                $targetDirectory = $this->getParameter('uploads_user_avatar');
+                $newFilename = 'avatar.' . $uploadedFile->getClientOriginalExtension();
+ 
+                $oldFilename = $media->getAvatar();
+                if ($oldFilename && file_exists($targetDirectory . '/' . $oldFilename)) {
+                    unlink($targetDirectory . '/' . $oldFilename);
+                }
 
-                $uploadedFile->move(
-                    $this->getParameter('kernel.project_dir') . 'public/uploads/userAvatarMedia',
-                    $newFilename
-                );
-
+                $uploadedFile->move($targetDirectory, $newFilename);
                 $media->setAvatar($newFilename);
                 $userMediaRepository->save($media, true);
                 $this->addFlash('success', 'Votre avatar a bien été modifié !');

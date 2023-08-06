@@ -45,8 +45,6 @@ class UserCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $mediaUser = $this->getParameter('medias_user');
-        $mediaUpload = 'uploads/userMedia/';
 
         yield TextField::new('firstname')->onlyOnIndex();
         yield TextField::new('lastname')->onlyOnIndex();
@@ -76,11 +74,6 @@ class UserCrudController extends AbstractCrudController
         }
         if(Crud::PAGE_INDEX){
             yield BooleanField::new('isActivate')->addJsFiles()->setLabel('Activation du compte')->onlyOnIndex()->renderAsSwitch(false);
-            yield ImageField::new('media', 'Image')
-            ->setBasePath($mediaUpload)
-            ->setUploadDir($mediaUser)
-            ->setUploadedFileNamePattern('[firstname]-[uuid].[extension]')
-            ->onlyOnIndex();
         }
     }
 }

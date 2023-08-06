@@ -33,7 +33,9 @@
 								{{ app.user.firstname|capitalize }}
 								{{ app.user.lastname|capitalize }}</h1>
 						</div>
-						<h2>Vos identifiants</h2>
+						<div class="d-flex justify-content-center text-light">
+							<h2>Vos identifiants</h2>
+						</div>
 						{{ form_start(form) }}
 						<div class="d-flex flex-column align-items-center">
 							<div class="mb-md-4 mb-5 col-10 col-md-5">
@@ -52,7 +54,9 @@
 							</div>
 						</div>
 						{{ form_end(form) }}
+						<div class="d-flex justify-content-center text-light mt-5">
 						<h2>Votre avatar</h2>
+						</div>
 						{{ form_start(mediaForm) }}
 						<div class="d-flex flex-column align-items-center">
 							<div class="mb-md-4 mb-5 col-10 col-md-5 error">

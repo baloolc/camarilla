@@ -32,7 +32,7 @@
 							{{ app.user.firstname|capitalize }}
 							{{ app.user.lastname|capitalize }}</h1>
 					</div>
-					<div class="d-flex justify-content-center mb-5 ">
+					<div class="d-flex justify-content-center mb-5 imgProfil ">
 						{% if app.user.userMedia is defined and app.user.userMedia.avatar is not empty %}
 							<div class="bgImg border border-primary border-4">
 								<img src="/uploads/userAvatarMedia/{{ app.user.userMedia.avatar }}" class="avatarImg" alt="Avatar de l'utilisateur {{ app.user.firstname }}">
