@@ -34,35 +34,51 @@
 				</ul>
 			</div>
 			{% if jobCategories is empty %}
-			<div></div>
+				<div></div>
 			{% else %}
+				<li class="p-1 mb-2 ms-2">
+					<a class="text-decoration-none fs-2 fw-bold text-light fontstyle" data-bs-toggle="collapse" href="#poste" role="button" aria-expanded="false" aria-controls="collapseExample">Poste
+						<i class="bi bi-caret-down-fill text-primary fs-4"></i>
+					</a>
+				</li>
+				<div class="collapse" id="poste">
+					<ul class="list">
+						{% for jobCategory in jobCategories%}
+							<li class="mb-2">
+								<a class="text-decoration-none fs-6 text-primary" href="{{path('job_show', { 'slug': jobCategory.slug })}}">
+									<i class="bi bi-arrow-right-short me-2 text-light"></i>
+									{{ jobCategory.name|capitalize|u.truncate(30, '...') }}</a>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			{% endif %}
+			<! faire une condition si c'est camarilla ou aubain ne pas s'afficher -->
 			<li class="p-1 mb-2 ms-2">
-				<a class="text-decoration-none fs-2 fw-bold text-light fontstyle" data-bs-toggle="collapse" href="#poste" role="button" aria-expanded="false" aria-controls="collapseExample">Poste
+				<a class="text-decoration-none fs-2 fw-bold text-light fontstyle" data-bs-toggle="collapse" href="#secte" role="button" aria-expanded="false" aria-controls="collapseExample">Secte
 					<i class="bi bi-caret-down-fill text-primary fs-4"></i>
 				</a>
 			</li>
-			<div class="collapse" id="poste">
+			<div class="collapse" id="secte">
 				<ul class="list">
-					{% for jobCategory in jobCategories%}
-						<li class="mb-2">
-							<a class="text-decoration-none fs-6 text-primary" href="{{path('job_show', { 'slug': jobCategory.slug })}}">
-								<i class="bi bi-arrow-right-short me-2 text-light"></i>
-								{{ jobCategory.name|capitalize|u.truncate(30, '...') }}</a>
-						</li>
-					{% endfor %}
+					<li class="mb-2">
+						<a class="text-decoration-none fs-6 text-primary" href="#">
+							<i class="bi bi-arrow-right-short me-2 text-light"></i>vide</a>
+					</li>
 				</ul>
 			</div>
-			{% endif %}
-			<li class="p-1 mb-2 ms-2"><a class="text-decoration-none fs-2 fw-bold text-light fontstyle" data-bs-toggle="collapse" href="#clan" role="button" aria-expanded="false" aria-controls="collapseExample">Clan
+			<li class="p-1 mb-2 ms-2">
+				<a class="text-decoration-none fs-2 fw-bold text-light fontstyle" data-bs-toggle="collapse" href="#clan" role="button" aria-expanded="false" aria-controls="collapseExample">Clan
 					<i class="bi bi-caret-down-fill text-primary fs-4"></i>
 				</a>
 			</li>
 			<div class="collapse" id="clan">
-			<ul class="list">
-				<li class="mb-2">
-					<a class="text-decoration-none fs-6 text-primary" href="#"><i class="bi bi-arrow-right-short me-2 text-light"></i>vide</a>
-				</li>
-			</ul>
+				<ul class="list">
+					<li class="mb-2">
+						<a class="text-decoration-none fs-6 text-primary" href="#">
+							<i class="bi bi-arrow-right-short me-2 text-light"></i>vide</a>
+					</li>
+				</ul>
 			</div>
 			<li class="mb-2 ms-2">
 				<a href="#" class="text-decoration-none text-light fs-2 fw-bold fontstyle">Messagerie</a>

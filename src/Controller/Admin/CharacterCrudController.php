@@ -46,8 +46,8 @@ class CharacterCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $mediaCharacter = $this->getParameter('medias_character');
-        $mediaUpload = 'uploads/characterMedia/';
+        $mediaCharacter = $this->getParameter('medias__character_avatar');
+        $mediaUpload = 'uploads/characterAvatarMedia';
 
         if (Crud::PAGE_INDEX) {
             yield AssociationField::new('user')->setLabel('Utilisateur');
@@ -59,13 +59,19 @@ class CharacterCrudController extends AbstractCrudController
             ->setUploadedFileNamePattern('[slug]-[uuid].[extension]')
             ->onlyOnIndex();
         yield UrlField::new('linkCharacter')->setLabel('Lien de la fiche personnage')->hideOnIndex();
-        yield ChoiceField::new('ageStatus')->setLabel('Status d\'âge')->autocomplete()->setChoices([
+        yield ChoiceField::new('secte')->setLabel('Secte')->autocomplete()->setChoices([
+            'Camarilla' => 'Camarilla',
+            'Anarch' => 'Anarch',
+            'Sabbat' => 'Sabbat',
+            'Aubain' => 'Aubain',
+        ]);
+        yield ChoiceField::new('ageStatus')->setLabel('Status d\'âge et secte')->autocomplete()->setChoices([
             'Infant sous tutelle' => 'Infant sous tutelle',
             'Nouveau née' => 'Nouveau née',
             'Ancilla' => 'Ancilla',
             'Ancien' => 'Ancien',
             'Vénérable' => 'Vénérable',
-            'Anarch' => 'Anarch',
+            'Aucun' => 'Aucun',
         ]);
         yield ChoiceField::new('clan')->setLabel('Votre clan')->autocomplete()->setChoices([
             'Nosferatu' => 'Nosferatu',
@@ -104,22 +110,22 @@ class CharacterCrudController extends AbstractCrudController
             ]);
         if (Crud::PAGE_INDEX) {
             yield ChoiceField::new('job')->setLabel('Poste(s)')
-            ->allowMultipleChoices()
-            ->setChoices([
-                'Prince' => 'prince',
-                'Sénéchale' => 'senechale',
-                'Bailly' => 'bailly',
-                'Maître(sse) des harpies' => 'maitre des harpies',
-                'Harpie majeur' => 'harpie majeur',
-                'Harpie' => 'harpie',
-                'Prévôt' => 'prevot',
-                'Sentinelle majeur' => 'sentinelle majeur',
-                'Sentinelle' => 'sentinelle',
-                'Fléau' => 'fléau',
-                'Gardien d\'éliséum' => 'gardien',
-                'Primogène' => 'primogene',
-                'Fouet' => 'fouet',
-            ]);
+                ->allowMultipleChoices()
+                ->setChoices([
+                    'Prince' => 'prince',
+                    'Sénéchale' => 'senechale',
+                    'Bailly' => 'bailly',
+                    'Maître(sse) des harpies' => 'maitre des harpies',
+                    'Harpie majeur' => 'harpie majeur',
+                    'Harpie' => 'harpie',
+                    'Prévôt' => 'prevot',
+                    'Sentinelle majeur' => 'sentinelle majeur',
+                    'Sentinelle' => 'sentinelle',
+                    'Fléau' => 'fléau',
+                    'Gardien d\'éliséum' => 'gardien',
+                    'Primogène' => 'primogene',
+                    'Fouet' => 'fouet',
+                ]);
         }
         yield AssociationField::new('jobs')->setLabel('Dans qu\'elle categorie de poste le personage doit apparaître ')->hideOnIndex();
         yield AssociationField::new('user')->setLabel('A quel utilisateur appartient le personnage')->hideOnIndex();

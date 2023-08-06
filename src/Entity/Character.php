@@ -75,6 +75,9 @@ class Character implements TimestampedInterface, SlugInterface
     #[ORM\OneToOne(mappedBy: 'personal', cascade: ['persist', 'remove'])]
     private ?CharacterMedia $characterMedia = null;
 
+    #[ORM\Column(length: 10)]
+    private ?string $secte = null;
+
     public function __construct()
     {
         $this->updatedAt = new DateTimeImmutable();
@@ -253,6 +256,18 @@ class Character implements TimestampedInterface, SlugInterface
         }
 
         $this->characterMedia = $characterMedia;
+
+        return $this;
+    }
+
+    public function getSecte(): ?string
+    {
+        return $this->secte;
+    }
+
+    public function setSecte(string $secte): self
+    {
+        $this->secte = $secte;
 
         return $this;
     }
