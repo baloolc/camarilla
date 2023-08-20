@@ -1,0 +1,20 @@
+{% extends "email.html.twig" %}
+
+{% block body %}
+	<h1 class='mt-1 ms-2'>Bonjour chers conteurs de l'association les terres d'acionna</h1>
+	<h2 class='mt-2 ms-2'>Je me permets de vous contactez pour vous demander un nouveau personnage</h2>
+	<h3 class="mt-2 ms-2">Voici le nom de mon personnage :</h3>
+	<h4 class="mt-2 ms-2 text-primary">{{characterRequest.characterName|capitalize}}</h4>
+	<h3 class="mt-2 ms-2">Voici sa secte :</h3>
+	<h4 class="mt-2 ms-2 text-primary">{{characterRequest.secte}}</h4>
+	<h3 class="mt-2 ms-2">Voici son clan :</h3>
+	<h4 class="mt-2 ms-2 text-primary">{{characterRequest.clan}}</h4>
+	<h3 class="mt-2 ms-2">Voici son statut d'âge :</h3>
+	<h4 class="mt-2 ms-2 text-primary">{{characterRequest.status}}</h4>
+	<h3 class="mt-2 ms-2">Voici le ou les motif(s) de ma demande :</h3>
+	<p class='mt-2 ms-2'>>{{ characterRequest.pattern|nl2br }}</p>
+    </br>
+    <h3 class="mt-2 ms-2">Vous en souhaitant bonne réception, dans l'attente de votre retour.</h3>
+    <h3 class="mt-2 ms-2">Cordialement,</h3>
+    <h3 class="mt-2 ms-2">{{user.lastname|upper}} {{user.firstname|capitalize}}</h3>
+{% endblock %}
