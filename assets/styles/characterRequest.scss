@@ -1,0 +1,37 @@
+@import "variable.scss";
+
+.imgCharacter {
+    height: clamp(min(52.5rem), 10vh, max(65rem)) ;
+    background-image: url("../images/demande_perso.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.title {
+   width: clamp(min(70rem), 10vw, max(55rem));
+
+}
+
+.formStyle {
+    border-color: $primary;
+    border-width: $borderWidth;
+    border-radius: $border;
+    outline-color: $success;
+}
+
+.send {
+    color: $primary;
+    font-size: $font-family-title;
+    background-color: $light;
+    border-radius: $border;
+    border-color: $primary;
+    border-width: $borderWidth;
+}
+
+.send:hover {
+    color: $light;
+    background-color: $primary;
+    border-color: $light;
+}

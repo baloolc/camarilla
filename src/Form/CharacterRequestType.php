@@ -7,6 +7,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class CharacterRequestType extends AbstractType
 {
@@ -21,7 +23,7 @@ class CharacterRequestType extends AbstractType
                 ]
             ])
             ->add('clan', ChoiceType::class, [
-                'label' => 'Nom',
+                'label' => 'Clan',
                 'required' => 'true',
                 'choices' => [
                     'Nosferatu' => 'Nosferatu',

@@ -18,6 +18,7 @@ class CharacterRequestController extends AbstractController
     {
         /** @var User  */
         $user = $this->getUser();
+        
         $characterRequest = new CharacterRequest();
         $form = $this->createForm(CharacterRequestType::class, $characterRequest);
         $form->handleRequest($request);
