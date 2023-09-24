@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Advertisement;
+use App\Entity\Calendar;
 use App\Entity\Character;
 use App\Entity\Event;
 use App\Entity\JobCategory;
@@ -71,6 +72,11 @@ class DashboardController extends AbstractDashboardController
 
             yield MenuItem::subMenu('Utilisateurs', 'fa-solid fa-users')->setSubItems([
                 MenuItem::linkToCrud('Tout les utilisateurs', 'fa-solid fa-file-pen', User::class),
+            ]);
+
+            yield MenuItem::subMenu('Calendrier', 'fa-regular fa-calendar')->setSubItems([
+                MenuItem::linkToCrud('Toutes les dates', 'fa-solid fa-calendar-days', Calendar::class),
+                MenuItem::linkToCrud('Ajouter une date', 'fas fa-plus', Calendar::class)->setAction(Crud::PAGE_NEW),
             ]);
         }
 

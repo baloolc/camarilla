@@ -36,6 +36,7 @@
 				<a class="nav-item link-light p-2 m-2" href="/">Accueil</a>
 				<a class="nav-item link-light p-2 m-2" href="https://camarilla.fr/forum/" target="_blank">Camarilla-fr.com</a>
 				<a class="nav-item link-light p-2 m-2" href="{{ path('contact') }}">Contact</a>
+				<a class="nav-item link-light p-2 m-2" href="#">Calendrier</a>
 				{% if is_granted('ROLE_MEMBER') and app.user.isActivate == true %}
 					<a class="nav-item link-light p-2 m-2" href="{{ path('forum_home') }}">Forum</a>
 					<a class="nav-item link-light p-2 m-2" href="#">Ressources</a>
